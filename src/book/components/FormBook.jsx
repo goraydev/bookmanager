@@ -8,7 +8,7 @@ export const FormBook = () => {
       </h1>
       <form
         action=""
-        className="w-2/3 mx-auto flex flex-wrap gap-4 bg-slate-50 p-4 my-10 rounded-md"
+        className="w-2/3 mx-auto flex flex-wrap gap-4 bg-white p-4 my-10 rounded-md"
       >
         <div className="relative my-6 w-full">
           <input
