@@ -4,7 +4,7 @@ export const Aside = () => {
   return (
     <aside className="bg-blue-400 min-h-screen w-1/4 py-4">
       <figure className="my-4 flex justify-center">
-        <div>tu logo aqui</div>
+        <Link to={"/"}>tu logo aqui</Link>
       </figure>
       <section>
         <Link

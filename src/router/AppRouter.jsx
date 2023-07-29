@@ -1,6 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { Form, Route, Routes } from "react-router-dom";
 import { useAuthStore } from "../hooks/useAuthStore";
-import { Layout } from "../book/components";
+import { Layout, FormBook } from "../book/components";
+import { Home } from "../book/pages/Home";
 
 export const AppRouter = () => {
   const { status, errorMessage } = useAuthStore();
@@ -12,6 +13,8 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />} />
+      <Route path="/" index element={<Home />} />
+      <Route path="/libro" element={<FormBook />} />
     </Routes>
   );
 };

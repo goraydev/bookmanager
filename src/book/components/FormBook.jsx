@@ -1,10 +1,15 @@
+import { Layout } from "./Layout";
+
 export const FormBook = () => {
   return (
-    <main className="w-3/4 py-4">
+    <Layout>
       <h1 className="text-2xl text-center font-semibold">
         Formulario de datos del libro
       </h1>
-      <form action="" className="w-2/3 mx-auto flex flex-wrap gap-4 bg-slate-50 p-4 my-10 rounded-md">
+      <form
+        action=""
+        className="w-2/3 mx-auto flex flex-wrap gap-4 bg-slate-50 p-4 my-10 rounded-md"
+      >
         <div className="relative my-6 w-full">
           <input
             id="id-b02"
@@ -82,6 +87,6 @@ export const FormBook = () => {
           </label>
         </div>
       </form>
-    </main>
+    </Layout>
   );
 };
