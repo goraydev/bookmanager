@@ -1,35 +1,71 @@
-import { Link, useLocation } from "react-router-dom";
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from '@mui/icons-material/Person';
 
 export const Aside = () => {
-  const location = useLocation();
-
   return (
-    <aside className="bg-blue-500 min-h-screen w-1/4 py-4">
-      <figure className="my-4 flex justify-center">
-        <Link to={"/"}>tu logo aqui</Link>
-      </figure>
-      <section className="flex flex-col gap-2">
-        <Link
-          to={"/libros"}
-          className={`inline-flex h-12 w-full items-center justify-center gap-2 justify-self-center whitespace-nowrap ${
-            location.pathname === "/libros"
-              ? "bg-blue-50 px-6 text-sm font-medium tracking-wide text-blue-500 transition duration-300 hover:bg-blue-100 hover:text-blue-600 focus:bg-blue-200 focus:text-blue-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-100 disabled:text-blue-400 disabled:shadow-none"
-              : ""
-          }`}
-        >
-          <span className="text-xl">Libros</span>
-        </Link>
-        <Link
-          to={"/nuevolibro"}
-          className={`inline-flex h-12 w-full items-center justify-center gap-2 justify-self-center whitespace-nowrap ${
-            location.pathname === "/nuevolibro"
-              ? "bg-blue-50 px-6 text-sm font-medium tracking-wide text-blue-500 transition duration-300 hover:bg-blue-100 hover:text-blue-600 focus:bg-blue-200 focus:text-blue-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-100 disabled:text-blue-400 disabled:shadow-none"
-              : ""
-          }`}
-        >
-          <span className="text-xl">Nuevo Libro</span>
-        </Link>
-      </section>
-    </aside>
+    <List>
+      <Link to={"/"}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>Inicio</Typography>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Divider />
+      <Link to={"/libros"}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <LibraryBooksIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>Libros</Typography>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Link to={"/nuevolibro"}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <MenuBookIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>Nuevo libro</Typography>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Link to={"/nuevoautor"}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>Crear autor</Typography>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </Link>
+    </List>
+    
   );
 };

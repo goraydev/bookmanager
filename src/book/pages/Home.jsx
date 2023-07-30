@@ -1,4 +1,3 @@
-import { getEnvariables } from "../../helpers/getEnvariables";
 import { Layout } from "../components/Layout";
 
 export const Home = () => {
