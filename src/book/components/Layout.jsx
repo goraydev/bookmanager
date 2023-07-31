@@ -98,6 +98,7 @@ export const Layout = ({ children }) => {
           <Typography variant="h6" noWrap component="div">
             Biblioteca Estudiantil
           </Typography>
+          
         </Toolbar>
       </AppBar>
       <Drawer

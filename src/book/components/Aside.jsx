@@ -41,26 +41,14 @@ export const Aside = () => {
           </ListItemButton>
         </ListItem>
       </Link>
-      <Link to={"/nuevolibro"}>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <MenuBookIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography>Nuevo libro</Typography>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </Link>
-      <Link to={"/nuevoautor"}>
+      <Link to={"/autores"}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
             <ListItemText>
-              <Typography>Crear autor</Typography>
+              <Typography>Autores</Typography>
             </ListItemText>
           </ListItemButton>
         </ListItem>

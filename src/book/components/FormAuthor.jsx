@@ -15,7 +15,7 @@ const style = {
   p: 4,
 };
 
-export const FormBook = () => {
+export const FormAuthor = () => {
   const { modalBook, calledModalBook } = useUiStore();
 
   const handleModalBook = () => {
@@ -23,13 +23,8 @@ export const FormBook = () => {
   };
   return (
     <>
-      <Button
-        onClick={calledModalBook}
-        variant="contained"
-        size="large"
-        className="flex gap-2"
-      >
-        Nuevo libro
+      <Button onClick={calledModalBook} variant="contained" size="large" className="flex gap-2">
+        Nuevo autor
         <AddCircleOutlineIcon />
       </Button>
       <Modal
@@ -44,43 +39,22 @@ export const FormBook = () => {
               <ClearIcon />
             </Button>
             <h1 className="text-3xl text-center font-bold my-2">
-              Formulario de datos del libro
+              Formulario de datos del autor
             </h1>
             <form
               action=""
               className="flex flex-wrap gap-4 bg-white rounded-md"
             >
               <TextField
-                id="standard-basic"
-                label="Nombre del libro"
+                id="standard-basic-author"
+                label="Nombre del autor"
                 variant="standard"
-                name="nameBook"
+                name="nameAuthor"
                 className="w-full"
               />
-              <TextField
-                id="standard-basic2"
-                label="Edición"
-                type="number"
-                variant="standard"
-                name="edition"
-              />
-              <TextField
-                id="standard-basic3"
-                label="Año"
-                type="number"
-                variant="standard"
-                name="year"
-              />
-              <TextField
-                id="standard-basic4"
-                label="Editorial"
-                variant="standard"
-                name="editorial"
-                className="w-full"
-              />
+             
               <Autocomplete
-                multiple
-                id="tags-standard-authorbook"
+                id="tags-standard-type"
                 options={top100Films}
                 getOptionLabel={(option) => option.title}
                 className="w-full"
@@ -88,21 +62,8 @@ export const FormBook = () => {
                   <TextField
                     {...params}
                     variant="standard"
-                    label="Autor o autores"
-                    placeholder="Ingrese nombre de autor"
-                  />
-                )}
-              />
-              <Autocomplete
-                id="tags-standard-typebook"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                className="w-full"
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Tipo de libro"
+                    label="Tipo de autor"
+                    placeholder="Ingrese nombre del tipo"
                   />
                 )}
               />
