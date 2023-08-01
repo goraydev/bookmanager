@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { createNewBook } from "../store/book/bookSlice";
+import { createNewBook, setActiveBook } from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useBookStore = () => {
@@ -30,11 +30,16 @@ export const useBookStore = () => {
 
     }
 
+    const onSetActiveBook = (book) => {
+        dispatch(setActiveBook(book));
+    }
+
     return {
 
 
         //methods
-        onSetBook
+        onSetBook,
+        onSetActiveBook
 
     }
 }

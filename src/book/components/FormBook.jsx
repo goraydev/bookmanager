@@ -14,6 +14,7 @@ import Select from "@mui/material/Select";
 import { useUiStore, useForm, useBookStore } from "../../hooks";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
+import toast, { Toaster } from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -83,7 +84,16 @@ export const FormBook = () => {
       return;
     }
 
+    //notify
+    toast.success("Libro creado exitosamente", {
+      duration: 2000,
+    });
+
     onSetBook(formState);
+
+    setPersonName([]);
+    setTipoId([]);
+    onResetForm();
   };
 
   return (
@@ -97,6 +107,7 @@ export const FormBook = () => {
         Nuevo libro
         <AddCircleOutlineIcon />
       </Button>
+      <Toaster />
       <Modal
         open={modal}
         onClose={calledModal}
