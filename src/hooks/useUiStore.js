@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
-import { openOrCloseModalBook } from "../store/ui/uiSlice";
+import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useUiStore = () => {
 
 
-    const { modalBook } = useSelector(state => state.ui);
+    const { modal } = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
-    const calledModalBook = () => {
+    const calledModal = () => {
 
-        dispatch(openOrCloseModalBook());
+        dispatch(openOrCloseModal());
 
     }
 
@@ -17,11 +17,11 @@ export const useUiStore = () => {
 
     return {
         //values
-        modalBook,
+        modal,
 
 
         //methoods
-        calledModalBook
+        calledModal
 
     }
 }

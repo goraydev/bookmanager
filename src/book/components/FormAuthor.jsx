@@ -16,20 +16,25 @@ const style = {
 };
 
 export const FormAuthor = () => {
-  const { modalBook, calledModalBook } = useUiStore();
+  const { modal, calledModal } = useUiStore();
 
   const handleModalBook = () => {
-    calledModalBook();
+    calledModal();
   };
   return (
     <>
-      <Button onClick={calledModalBook} variant="contained" size="large" className="flex gap-2">
+      <Button
+        onClick={calledModal}
+        variant="contained"
+        size="large"
+        className="flex gap-2"
+      >
         Nuevo autor
         <AddCircleOutlineIcon />
       </Button>
       <Modal
-        open={modalBook}
-        onClose={calledModalBook}
+        open={modal}
+        onClose={calledModal}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
@@ -52,7 +57,7 @@ export const FormAuthor = () => {
                 name="nameAuthor"
                 className="w-full"
               />
-             
+
               <Autocomplete
                 id="tags-standard-type"
                 options={top100Films}

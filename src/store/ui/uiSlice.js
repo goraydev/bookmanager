@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    modalBook: false
+    modal: false
 }
 
 export const uiSlice = createSlice({
@@ -9,11 +9,11 @@ export const uiSlice = createSlice({
     initialState,
     reducers: {
 
-        openOrCloseModalBook: (state, { payload }) => {
-            state.modalBook = state.modalBook ? false : true;
+        openOrCloseModal: (state, { payload }) => {
+            state.modal = state.modal ? false : true;
         }
     }
 });
 
-export const { openOrCloseModalBook } = uiSlice.actions
+export const { openOrCloseModal } = uiSlice.actions
 
