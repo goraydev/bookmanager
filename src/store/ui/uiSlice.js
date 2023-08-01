@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    modal: false
+    modal: false,
+    msg: ""
 }
 
 export const uiSlice = createSlice({
@@ -11,9 +12,20 @@ export const uiSlice = createSlice({
 
         openOrCloseModal: (state, { payload }) => {
             state.modal = state.modal ? false : true;
+        },
+        sendMessage: (state, { payload }) => {
+            state.msg = payload;
+        },
+
+        clearMessage: (state) => {
+            state.msg = "";
         }
     }
 });
 
-export const { openOrCloseModal } = uiSlice.actions
+export const {
+    openOrCloseModal,
+    sendMessage,
+    clearMessage
+} = uiSlice.actions
 

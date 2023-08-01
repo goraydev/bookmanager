@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { createNewBook } from "../store/book/bookSlice";
+import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useBookStore = () => {
 
@@ -7,9 +8,25 @@ export const useBookStore = () => {
     const { activeBook, books, cre } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
-    const onCreateNewBook = (form) => {
+    const onSetBook = (form) => {
 
-        dispatch(createNewBook(form));
+
+        try {
+
+            if (form.id) {
+
+                //actualizar libro
+            }
+
+            //crear libro
+
+            dispatch(createNewBook(form));
+            dispatch(openOrCloseModal());
+
+
+        } catch (error) {
+
+        }
 
     }
 
@@ -17,7 +34,7 @@ export const useBookStore = () => {
 
 
         //methods
-        onCreateNewBook
+        onSetBook
 
     }
 }

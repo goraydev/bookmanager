@@ -1,4 +1,11 @@
-import { Autocomplete, Box, Button, Modal, TextField } from "@mui/material";
+import {
+  Alert,
+  Autocomplete,
+  Box,
+  Button,
+  Modal,
+  TextField,
+} from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
@@ -28,8 +35,8 @@ const autores = [
 ];
 
 export const FormBook = () => {
-  const { modal, calledModal } = useUiStore();
-  const { onCreateNewBook } = useBookStore();
+  const { modal, calledModal, msg, onSendMessage } = useUiStore();
+  const { onSetBook } = useBookStore();
   const [tipoId, setTipoId] = useState("");
   const [personName, setPersonName] = useState([]);
 
@@ -66,7 +73,17 @@ export const FormBook = () => {
     formState.autor = personName;
     formState._id = new Date().getTime();
 
-    onCreateNewBook(formState);
+    if (
+      [nombreLib, tipoId, edicion, año, editorial].some(
+        (value) => value === ""
+      ) ||
+      formState.autor.length === 0
+    ) {
+      onSendMessage("Faltan campos por llenar");
+      return;
+    }
+
+    onSetBook(formState);
   };
 
   return (
@@ -94,6 +111,12 @@ export const FormBook = () => {
             <h1 className="text-3xl text-center font-bold my-2">
               Formulario de datos del libro
             </h1>
+
+            {msg !== "" && (
+              <Alert severity="error" className="my-2">
+                {msg}
+              </Alert>
+            )}
             <form
               action=""
               className="flex flex-wrap gap-4 bg-white rounded-md"

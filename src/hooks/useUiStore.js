@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
-import { openOrCloseModal } from "../store/ui/uiSlice";
+import { clearMessage, openOrCloseModal, sendMessage } from "../store/ui/uiSlice";
 
 export const useUiStore = () => {
 
 
-    const { modal } = useSelector(state => state.ui);
+    const { modal, msg } = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
     const calledModal = () => {
@@ -13,15 +13,30 @@ export const useUiStore = () => {
 
     }
 
+    const onSendMessage = (msg) => {
+
+        dispatch(sendMessage(msg));
+
+
+        //Limpiamos el mensaje
+        setTimeout(() => {
+
+            dispatch(clearMessage());
+        }, 2000);
+
+    }
+
 
 
     return {
         //values
         modal,
+        msg,
 
 
         //methoods
-        calledModal
+        calledModal,
+        onSendMessage,
 
     }
 }
