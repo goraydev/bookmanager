@@ -1,11 +1,12 @@
-import { Divider, Typography } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, FileDownload } from "@mui/icons-material";
 import { useBookStore } from "../../hooks/useBookStore";
+import { ExportToCsv } from "export-to-csv";
 
 export const TableBooks = () => {
   const { books, onSetActiveBook } = useBookStore();
@@ -35,7 +36,7 @@ export const TableBooks = () => {
         size: 150,
       },
       {
-        accessorKey: "tipoId",
+        accessorKey: "tipoLibro.tipoNombre",
         header: "Tipo",
         size: 150,
       },
@@ -57,6 +58,30 @@ export const TableBooks = () => {
     ],
     []
   );
+
+  const csvOptions = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    useBom: true,
+    useKeysAsHeaders: false,
+    headers: columns.map((c) => c.header),
+  };
+
+  const csvExporter = new ExportToCsv(csvOptions);
+
+  const handleExportData = (rows) => {
+    const dataExport = rows.map((row) => {
+      return {
+        ...row.original,
+        tipoLibro: row.original.tipoLibro ? row.original.tipoLibro.tipoNombre : "",
+      };
+    });
+
+    csvExporter.generateCsv(dataExport);
+  };
+
   return (
     <div className="my-4">
       <h1 className="text-2xl font-bold my-2">Libros registrados</h1>
@@ -95,6 +120,28 @@ export const TableBooks = () => {
                     <Delete />
                   </IconButton>
                 </Tooltip>
+              </Box>
+            )}
+            renderTopToolbarCustomActions={({ table }) => (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "1rem",
+                  p: "0.5rem",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Button
+                  color="success"
+                  //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+                  onClick={() =>
+                    handleExportData(table.getPrePaginationRowModel().rows)
+                  }
+                  startIcon={<FileDownload />}
+                  variant="contained"
+                >
+                  Exportar Data
+                </Button>
               </Box>
             )}
             localization={MRT_Localization_ES}

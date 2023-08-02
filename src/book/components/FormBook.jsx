@@ -29,16 +29,16 @@ const style = {
   p: 4,
 };
 
+const tipoLibros = [
+  { id: 1, tipoNombre: "Novela Teatral" },
+  { id: 2, tipoNombre: "Terror" },
+];
+
 const autores = [
   { id: 1, nombreAutor: "Oliver Hansen", tipoAutor: 2 },
   { id: 2, nombreAutor: "Van Henry", tipoAutor: 2 },
   { id: 3, nombreAutor: "April Tucker", tipoAutor: 1 },
   { id: 4, nombreAutor: "Carlos Abbott", tipoAutor: 1 },
-];
-
-const tipoLibros = [
-  { id: 1, tipoLibro: "Novela Teatral" },
-  { id: 2, tipoLibro: "Terror" },
 ];
 
 export const FormBook = () => {
@@ -56,7 +56,7 @@ export const FormBook = () => {
     onResetForm,
   } = useForm({
     nombreLib: "",
-    tipoId: 0,
+    tipoLibro: {},
     edicion: "",
     año: "",
     editorial: "",
@@ -70,22 +70,23 @@ export const FormBook = () => {
   const handleChangeAuthor = (event, value) => {
     setPersonName(value);
   };
-  const handleChangeTypeBook = (event, value) => {
-    setTipoId(value);
+  const handleChangeTypeBook = (event) => {
+    setTipoId(event.target.value);
   };
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    formState.tipoId = tipoId;
+    const allBookSelected = tipoLibros.find((book) => book.id === tipoId);
+
+    formState.tipoLibro = allBookSelected;
     formState.autor = personName;
     formState._id = new Date().getTime();
 
     if (
-      [nombreLib, tipoId, edicion, año, editorial].some(
-        (value) => value === ""
-      ) ||
-      formState.autor.length === 0
+      [nombreLib, edicion, año, editorial].some((value) => value === "") ||
+      formState.autor.length === 0 ||
+      tipoId === ""
     ) {
       onSendMessage("Faltan campos por llenar");
       return;
@@ -96,11 +97,11 @@ export const FormBook = () => {
       duration: 2000,
     });
 
-    console.log(formState);
-    /*     onSetBook(formState); */
+    /*     console.log(formState); */
+    onSetBook(formState);
 
     setPersonName([]);
-    setTipoId([]);
+    setTipoId("");
     onResetForm();
   };
 
@@ -111,7 +112,7 @@ export const FormBook = () => {
     }
     setFormState({
       nombreLib: "",
-      tipoId: 0,
+      tipoLibro: {},
       edicion: "",
       año: "",
       editorial: "",
@@ -219,11 +220,35 @@ export const FormBook = () => {
                 )}
               />
 
+              <FormControl variant="standard" className="w-full">
+                <InputLabel id="demo-simple-select-standard-label">
+                  Tipo de libro
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  label="Tipo libro"
+                  value={tipoId}
+                  onChange={handleChangeTypeBook}
+                >
+                  <MenuItem value="">
+                    <em>Ninguno</em>
+                  </MenuItem>
+                  {tipoLibros &&
+                    tipoLibros.map((tipo) => (
+                      <MenuItem value={tipo.id} key={tipo.id}>
+                        {tipo.tipoNombre}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+
               <Button
                 variant="contained"
                 size="large"
                 type="submit"
                 className="w-full"
+                sx={{ marginTop: '1rem' }}
               >
                 Crear
               </Button>

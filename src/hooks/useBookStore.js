@@ -5,7 +5,7 @@ import { openOrCloseModal } from "../store/ui/uiSlice";
 export const useBookStore = () => {
 
 
-    const { activeBook, books, cre } = useSelector(state => state.book);
+    const { activeBook, books } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
     const onSetBook = (form) => {
