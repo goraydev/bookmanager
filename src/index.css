@@ -6,3 +6,13 @@
   width: 80%;
   margin: 0 auto;
 }
+
+.mrt-table-body-row {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.mrt-table-head {
+  display: flex;
+  flex-direction: row-reverse;
+}

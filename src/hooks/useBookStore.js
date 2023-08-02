@@ -36,6 +36,9 @@ export const useBookStore = () => {
 
     return {
 
+        //states
+        books, 
+
 
         //methods
         onSetBook,
