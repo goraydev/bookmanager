@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { clearMessage, openOrCloseModal, sendMessage } from "../store/ui/uiSlice";
+import { clearAllBook } from "../store/book/bookSlice";
 
 export const useUiStore = () => {
 
@@ -10,6 +11,7 @@ export const useUiStore = () => {
     const calledModal = () => {
 
         dispatch(openOrCloseModal());
+        dispatch(clearAllBook());
 
     }
 

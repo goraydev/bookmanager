@@ -28,5 +28,6 @@ export const bookSlice = createSlice({
 
 export const {
     setActiveBook,
-    createNewBook
+    createNewBook,
+    clearAllBook
 } = bookSlice.actions

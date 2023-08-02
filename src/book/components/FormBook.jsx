@@ -15,6 +15,7 @@ import { useUiStore, useForm, useBookStore } from "../../hooks";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -35,20 +36,27 @@ const autores = [
   { id: 4, nombreAutor: "Carlos Abbott", tipoAutor: 1 },
 ];
 
+const tipoLibros = [
+  { id: 1, tipoLibro: "Novela Teatral" },
+  { id: 2, tipoLibro: "Terror" },
+];
+
 export const FormBook = () => {
   const { modal, calledModal, msg, onSendMessage } = useUiStore();
+  const { activeBook } = useBookStore();
   const { onSetBook } = useBookStore();
   const [tipoId, setTipoId] = useState("");
   const [personName, setPersonName] = useState([]);
 
-  const {
+  let {
     formState: { nombreLib, edicion, año, editorial, autor },
     formState,
+    setFormState,
     onInputChange,
     onResetForm,
   } = useForm({
     nombreLib: "",
-    tipoId: "",
+    tipoId: 0,
     edicion: "",
     año: "",
     editorial: "",
@@ -59,12 +67,11 @@ export const FormBook = () => {
     calledModal();
   };
 
-  const handleChangeTypeBook = (event) => {
-    setTipoId(event.target.value);
-  };
-
   const handleChangeAuthor = (event, value) => {
     setPersonName(value);
+  };
+  const handleChangeTypeBook = (event, value) => {
+    setTipoId(value);
   };
 
   const handleSubmitForm = (e) => {
@@ -89,12 +96,28 @@ export const FormBook = () => {
       duration: 2000,
     });
 
-    onSetBook(formState);
+    console.log(formState);
+    /*     onSetBook(formState); */
 
     setPersonName([]);
     setTipoId([]);
     onResetForm();
   };
+
+  useEffect(() => {
+    if (activeBook !== null) {
+      setFormState({ ...activeBook });
+      return;
+    }
+    setFormState({
+      nombreLib: "",
+      tipoId: 0,
+      edicion: "",
+      año: "",
+      editorial: "",
+      autor: [],
+    });
+  }, [activeBook]);
 
   return (
     <>
@@ -195,26 +218,7 @@ export const FormBook = () => {
                   />
                 )}
               />
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 320 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Tipo de libro
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  name="tipoID"
-                  value={tipoId}
-                  onChange={handleChangeTypeBook}
-                  label="Tipo de libro"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+
               <Button
                 variant="contained"
                 size="large"

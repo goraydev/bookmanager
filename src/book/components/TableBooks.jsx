@@ -1,43 +1,14 @@
-import { Divider } from "@mui/material";
-import { useCallback, useState, useMemo } from "react";
+import { Divider, Typography } from "@mui/material";
+import { useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  MenuItem,
-  Stack,
-  TextField,
-  Tooltip,
-} from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import { useBookStore } from "../../hooks/useBookStore";
 
-const data = [
-  {
-    nombreLib: "Cualquier libro",
-    tipoId: 10,
-    edicion: "2",
-    año: "2023-07-31",
-    editorial: "Lumbreras",
-  },
-  {
-    nombreLib: "Cualquier libro 2",
-    tipoId: 2,
-    edicion: "1",
-    año: "2020-06-29",
-    editorial: "Lumbreras",
-  },
-];
-
 export const TableBooks = () => {
-  const { books } = useBookStore();
+  const { books, onSetActiveBook } = useBookStore();
 
   const handleSaveRowEdits = (newRowData) => {
     // Tu lógica para guardar los cambios de edición de fila
@@ -49,6 +20,11 @@ export const TableBooks = () => {
 
   const handleDeleteRow = (row) => {
     // Tu lógica para eliminar una fila
+  };
+
+  const handleButtonEdit = (row) => {
+    const { original } = row;
+    onSetActiveBook(original);
   };
 
   const columns = useMemo(
@@ -107,7 +83,7 @@ export const TableBooks = () => {
             renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
                 <Tooltip arrow placement="left" title="Edit">
-                  <IconButton onClick={() => table.setEditingRow(row)}>
+                  <IconButton onClick={() => handleButtonEdit(row)}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
