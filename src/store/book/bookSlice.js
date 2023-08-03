@@ -16,7 +16,21 @@ export const bookSlice = createSlice({
         },
         createNewBook: (state, { payload }) => {
             state.books.push(payload);
-            state.bookActive = null;
+            state.activeBook = null;
+        },
+
+        updateBook: (state, { payload }) => {
+            state.books = state.books.map(book => {
+                if (book._id === payload._id) {
+                    return payload;
+                }
+                return book;
+            })
+            state.activeBook = null;
+        },
+
+        deleteBook: (state, { payload }) => {
+            state.books = state.books.filter(book => book._id !== payload._id)
         },
         clearAllBook: (state) => {
             //state.books = [];
@@ -29,5 +43,7 @@ export const bookSlice = createSlice({
 export const {
     setActiveBook,
     createNewBook,
-    clearAllBook
+    updateBook,
+    deleteBook,
+    clearAllBook,
 } = bookSlice.actions

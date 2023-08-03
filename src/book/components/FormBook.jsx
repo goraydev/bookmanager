@@ -5,6 +5,7 @@ import {
   Button,
   Modal,
   TextField,
+  Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -49,7 +50,7 @@ export const FormBook = () => {
   const [personName, setPersonName] = useState([]);
 
   let {
-    formState: { nombreLib, edicion, año, editorial, autor },
+    formState: { nombreLib, edicion, año, editorial, autor, tipoLibro },
     formState,
     setFormState,
     onInputChange,
@@ -81,7 +82,6 @@ export const FormBook = () => {
 
     formState.tipoLibro = allBookSelected;
     formState.autor = personName;
-    formState._id = new Date().getTime();
 
     if (
       [nombreLib, edicion, año, editorial].some((value) => value === "") ||
@@ -93,9 +93,16 @@ export const FormBook = () => {
     }
 
     //notify
-    toast.success("Libro creado exitosamente", {
-      duration: 2000,
-    });
+
+    if (activeBook !== null) {
+      toast.success("Libro actualizado exitosamente", {
+        duration: 2000,
+      });
+    } else {
+      toast.success("Libro creado exitosamente", {
+        duration: 2000,
+      });
+    }
 
     /*     console.log(formState); */
     onSetBook(formState);
@@ -202,6 +209,15 @@ export const FormBook = () => {
                 value={editorial}
                 onChange={onInputChange}
               />
+
+              {activeBook && (
+                <Alert severity="info" className="w-full mt-2">
+                  <strong>Autor(es) actuales: {""}</strong>
+                  {activeBook.autor
+                    .map((element) => element.nombreAutor)
+                    .join(", ")}
+                </Alert>
+              )}
               <Autocomplete
                 multiple
                 id="tags-standard-authorbook"
@@ -214,12 +230,18 @@ export const FormBook = () => {
                   <TextField
                     {...params}
                     variant="standard"
-                    label="Autor o autores"
+                    label="Autor o Autores"
                     placeholder="Ingrese nombre de autor"
                   />
                 )}
               />
 
+              {activeBook && (
+                <Alert severity="info" className="w-full mt-4">
+                  <strong>Tipo de libro actual: {""}</strong>
+                  {activeBook.tipoLibro.tipoNombre}
+                </Alert>
+              )}
               <FormControl variant="standard" className="w-full">
                 <InputLabel id="demo-simple-select-standard-label">
                   Tipo de libro
@@ -248,9 +270,9 @@ export const FormBook = () => {
                 size="large"
                 type="submit"
                 className="w-full"
-                sx={{ marginTop: '1rem' }}
+                sx={{ marginTop: "1rem" }}
               >
-                Crear
+                {activeBook !== null ? "Actualizar" : "Crear"}
               </Button>
             </form>
           </div>

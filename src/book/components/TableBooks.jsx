@@ -7,9 +7,10 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import { Delete, Edit, FileDownload } from "@mui/icons-material";
 import { useBookStore } from "../../hooks/useBookStore";
 import { ExportToCsv } from "export-to-csv";
+import { Toaster, toast } from "react-hot-toast";
 
 export const TableBooks = () => {
-  const { books, onSetActiveBook } = useBookStore();
+  const { books, onSetActiveBook, onDeleteBook } = useBookStore();
 
   const handleSaveRowEdits = (newRowData) => {
     // Tu lógica para guardar los cambios de edición de fila
@@ -20,7 +21,9 @@ export const TableBooks = () => {
   };
 
   const handleDeleteRow = (row) => {
-    // Tu lógica para eliminar una fila
+    const { original } = row;
+    toast.success("Eliminado con éxito");
+    onDeleteBook(original);
   };
 
   const handleButtonEdit = (row) => {
@@ -75,7 +78,9 @@ export const TableBooks = () => {
     const dataExport = rows.map((row) => {
       return {
         ...row.original,
-        tipoLibro: row.original.tipoLibro ? row.original.tipoLibro.tipoNombre : "",
+        tipoLibro: row.original.tipoLibro
+          ? row.original.tipoLibro.tipoNombre
+          : "",
       };
     });
 
@@ -84,6 +89,7 @@ export const TableBooks = () => {
 
   return (
     <div className="my-4">
+      <Toaster />
       <h1 className="text-2xl font-bold my-2">Libros registrados</h1>
       <Divider />
       <Box sx={{ overflow: "auto" }}>

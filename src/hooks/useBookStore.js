@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { clearAllBook, createNewBook, setActiveBook } from "../store/book/bookSlice";
+import { clearAllBook, createNewBook, deleteBook, setActiveBook, updateBook } from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useBookStore = () => {
@@ -13,19 +13,25 @@ export const useBookStore = () => {
 
         try {
 
-            if (form.id) {
+            if (form._id) {
 
                 //actualizar libro
+                
+                dispatch(updateBook(form));
+                dispatch(openOrCloseModal());
+                return;
             }
 
             //crear libro
 
+            form._id = new Date().getTime();
             dispatch(createNewBook(form));
             dispatch(openOrCloseModal());
 
 
         } catch (error) {
 
+            console.error(error)
         }
 
     }
@@ -33,6 +39,17 @@ export const useBookStore = () => {
     const onSetActiveBook = (book) => {
         dispatch(setActiveBook(book));
         dispatch(openOrCloseModal());
+    }
+
+    const onDeleteBook = (payload) => {
+        try {
+
+
+            dispatch(deleteBook(payload));
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
@@ -49,6 +66,7 @@ export const useBookStore = () => {
         //methods
         onSetBook,
         onSetActiveBook,
-        onClearAllBook
+        onClearAllBook,
+        onDeleteBook
     }
 }
