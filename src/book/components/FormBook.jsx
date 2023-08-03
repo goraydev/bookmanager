@@ -78,19 +78,21 @@ export const FormBook = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    const allBookSelected = tipoLibros.find((book) => book.id === tipoId);
-
-    formState.tipoLibro = allBookSelected;
-    formState.autor = personName;
-
-    if (
-      [nombreLib, edicion, año, editorial].some((value) => value === "") ||
-      formState.autor.length === 0 ||
-      tipoId === ""
-    ) {
-      onSendMessage("Faltan campos por llenar");
-      return;
-    }
+    if (activeBook === null) {
+      const allBookSelected = tipoLibros.find((book) => book.id === tipoId);
+      formState.tipoLibro = allBookSelected;
+      formState.autor = personName;
+    
+      const anyFieldEmpty = [nombreLib, edicion, año, editorial].some((value) => value === "");
+    
+      if (anyFieldEmpty || personName.length === 0 || tipoId === "") {
+        onSendMessage("Faltan campos por llenar");
+        return;
+      }
+    } else {
+      formState.autor = personName.length > 0 ? personName : activeBook.autor;
+      formState.tipoLibro = tipoId !== "" ? tipoLibros.find((book) => book.id === tipoId) : activeBook.tipoLibro;
+    }    
 
     //notify
 
@@ -104,7 +106,7 @@ export const FormBook = () => {
       });
     }
 
-    /*     console.log(formState); */
+    //    console.log(formState);
     onSetBook(formState);
 
     setPersonName([]);
@@ -212,7 +214,7 @@ export const FormBook = () => {
 
               {activeBook && (
                 <Alert severity="info" className="w-full mt-2">
-                  <strong>Autor(es) actuales: {""}</strong>
+                  <strong>Autor(es) actual(es): {""}</strong>
                   {activeBook.autor
                     .map((element) => element.nombreAutor)
                     .join(", ")}
