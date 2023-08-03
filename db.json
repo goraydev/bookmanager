@@ -1,11 +1,21 @@
 {
   "libros": [
     {
-      "nameBook": "Gerson",
-      "edition": "Meta",
-      "year": "jofre1236@gmail.com",
-      "editorial": "978177398",
-      "authors": "Otra nota",
+      "nombreLib": "Molestiae est non ut",
+      "tipoLibro": {
+        "id": 2,
+        "tipoNombre": "Terror"
+      },
+      "edicion": "92",
+      "año": "2002-11-06",
+      "editorial": "Exercitationem imped",
+      "autor": [
+        {
+          "id": 2,
+          "nombreAutor": "Van Henry",
+          "tipoAutor": 2
+        }
+      ],
       "id": 1
     }
   ]

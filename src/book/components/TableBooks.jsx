@@ -31,7 +31,7 @@ export const TableBooks = () => {
     const { original } = row;
     onSetActiveBook(original);
 
-    navigate(`/libros/${original._id}`);
+    navigate(`/libros/${original.id}`);
     onCloseModal();
   };
 

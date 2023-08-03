@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { clearAllBook, createNewBook, deleteBook, setActiveBook, updateBook } from "../store/book/bookSlice";
+import { clearAllBook, createNewBook, deleteBook, getBooks, setActiveBook, updateBook } from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
+import appAPI from "../API/appAPI";
 
 export const useBookStore = () => {
 
@@ -8,24 +9,38 @@ export const useBookStore = () => {
     const { activeBook, books } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
-    const onSetBook = (form) => {
+
+    const onGetBooks = async () => {
+
+        try {
+
+            const { data } = await appAPI.get("/libros");
+            dispatch(getBooks(data));
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const onSetBook = async (form) => {
 
 
         try {
 
-            if (form._id) {
+            if (form.id) {
 
                 //actualizar libro
-                
-                dispatch(updateBook(form));
+                await appAPI.put(`libros/${form.id}`, form);
+                dispatch(updateBook({ ...form }));
                 dispatch(openOrCloseModal());
                 return;
             }
 
             //crear libro
 
-            form._id = new Date().getTime();
-            dispatch(createNewBook(form));
+            const { data } = await appAPI.post("libros", form);
+
+            dispatch(createNewBook(data));
             dispatch(openOrCloseModal());
 
 
@@ -41,11 +56,12 @@ export const useBookStore = () => {
         dispatch(openOrCloseModal());
     }
 
-    const onDeleteBook = (payload) => {
+    const onDeleteBook = async (payload) => {
         try {
 
 
-            dispatch(deleteBook(payload));
+            await appAPI.delete(`/libros/${payload.id}`);
+            dispatch(deleteBook(payload.id));
 
         } catch (error) {
             console.error(error)
@@ -67,6 +83,7 @@ export const useBookStore = () => {
         onSetBook,
         onSetActiveBook,
         onClearAllBook,
-        onDeleteBook
+        onDeleteBook,
+        onGetBooks
     }
 }

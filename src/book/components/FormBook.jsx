@@ -82,17 +82,22 @@ export const FormBook = () => {
       const allBookSelected = tipoLibros.find((book) => book.id === tipoId);
       formState.tipoLibro = allBookSelected;
       formState.autor = personName;
-    
-      const anyFieldEmpty = [nombreLib, edicion, año, editorial].some((value) => value === "");
-    
+
+      const anyFieldEmpty = [nombreLib, edicion, año, editorial].some(
+        (value) => value === ""
+      );
+
       if (anyFieldEmpty || personName.length === 0 || tipoId === "") {
         onSendMessage("Faltan campos por llenar");
         return;
       }
     } else {
       formState.autor = personName.length > 0 ? personName : activeBook.autor;
-      formState.tipoLibro = tipoId !== "" ? tipoLibros.find((book) => book.id === tipoId) : activeBook.tipoLibro;
-    }    
+      formState.tipoLibro =
+        tipoId !== ""
+          ? tipoLibros.find((book) => book.id === tipoId)
+          : activeBook.tipoLibro;
+    }
 
     //notify
 
@@ -179,6 +184,7 @@ export const FormBook = () => {
                 id="standard-basic2"
                 label="Edición"
                 type="number"
+                inputProps={{ min: 1 }}
                 variant="standard"
                 name="edicion"
                 value={edicion}
