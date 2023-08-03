@@ -13,6 +13,9 @@ export const uiSlice = createSlice({
         openOrCloseModal: (state, { payload }) => {
             state.modal = state.modal ? false : true;
         },
+        closeModal: (state) => {
+            state.modal = false;
+        },
         sendMessage: (state, { payload }) => {
             state.msg = payload;
         },
@@ -25,6 +28,7 @@ export const uiSlice = createSlice({
 
 export const {
     openOrCloseModal,
+    closeModal,
     sendMessage,
     clearMessage
 } = uiSlice.actions

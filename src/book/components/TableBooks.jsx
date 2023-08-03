@@ -4,21 +4,17 @@ import { MaterialReactTable } from "material-react-table";
 //Import Material React Table Translations
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import { Delete, Edit, FileDownload } from "@mui/icons-material";
+import { Delete, Edit, FileDownload, Visibility } from "@mui/icons-material";
 import { useBookStore } from "../../hooks/useBookStore";
 import { ExportToCsv } from "export-to-csv";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { useUiStore } from "../../hooks/useUiStore";
 
 export const TableBooks = () => {
   const { books, onSetActiveBook, onDeleteBook } = useBookStore();
-
-  const handleSaveRowEdits = (newRowData) => {
-    // Tu lógica para guardar los cambios de edición de fila
-  };
-
-  const handleCancelRowEdits = () => {
-    // Tu lógica para cancelar la edición de fila
-  };
+  const { onCloseModal } = useUiStore();
+  const navigate = useNavigate();
 
   const handleDeleteRow = (row) => {
     const { original } = row;
@@ -29,6 +25,14 @@ export const TableBooks = () => {
   const handleButtonEdit = (row) => {
     const { original } = row;
     onSetActiveBook(original);
+  };
+
+  const handleViewDetails = (row) => {
+    const { original } = row;
+    onSetActiveBook(original);
+
+    navigate(`/libros/${original._id}`);
+    onCloseModal();
   };
 
   const columns = useMemo(
@@ -46,7 +50,7 @@ export const TableBooks = () => {
       {
         accessorKey: "edicion", //normal accessorKey
         header: "Edición",
-        size: 200,
+        size: 50,
       },
       {
         accessorKey: "año",
@@ -98,9 +102,9 @@ export const TableBooks = () => {
             displayColumnDefOptions={{
               "mrt-row-actions": {
                 muiTableHeadCellProps: {
-                  align: "left",
+                  align: "center",
                 },
-                size: 120,
+                size: 50,
               },
             }}
             columns={columns}
@@ -109,21 +113,27 @@ export const TableBooks = () => {
             editingMode="modal" //default
             enableColumnOrdering
             enableEditing
-            onEditingRowSave={handleSaveRowEdits}
-            onEditingRowCancel={handleCancelRowEdits}
             renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Tooltip arrow placement="left" title="Edit">
+                <Tooltip arrow placement="top" title="Edit">
                   <IconButton onClick={() => handleButtonEdit(row)}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
-                <Tooltip arrow placement="right" title="Delete">
+                <Tooltip arrow placement="top" title="Delete">
                   <IconButton
                     color="error"
                     onClick={() => handleDeleteRow(row)}
                   >
                     <Delete />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip arrow placement="top" title="Ver detalles">
+                  <IconButton
+                    color="info"
+                    onClick={() => handleViewDetails(row)}
+                  >
+                    <Visibility />
                   </IconButton>
                 </Tooltip>
               </Box>

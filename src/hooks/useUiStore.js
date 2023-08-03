@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { clearMessage, openOrCloseModal, sendMessage } from "../store/ui/uiSlice";
+import { clearMessage, closeModal, openOrCloseModal, sendMessage } from "../store/ui/uiSlice";
 import { clearAllBook } from "../store/book/bookSlice";
 
 export const useUiStore = () => {
@@ -13,6 +13,10 @@ export const useUiStore = () => {
         dispatch(openOrCloseModal());
         dispatch(clearAllBook());
 
+    }
+
+    const onCloseModal = () => {
+        dispatch(closeModal());
     }
 
     const onSendMessage = (msg) => {
@@ -39,6 +43,7 @@ export const useUiStore = () => {
         //methoods
         calledModal,
         onSendMessage,
+        onCloseModal
 
     }
 }
