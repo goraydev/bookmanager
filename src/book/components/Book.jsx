@@ -33,7 +33,7 @@ export const Book = () => {
           />
         </figure>
         {/*  <!-- Body--> */}
-        <div className="flex-1 p-6 sm:mx-6 sm:px-0 flex flex-col justify-between">
+        <div className="flex-1 p-6 sm:mx-6 sm:px-0 flex flex-col justify-stretch">
           <header className="flex gap-4 mb-4">
             <div>
               <h3 className="text-4xl font-medium text-slate-700">
