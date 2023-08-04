@@ -11,12 +11,40 @@
       "editorial": "Exercitationem imped",
       "autor": [
         {
-          "id": 2,
-          "nombreAutor": "Van Henry",
-          "tipoAutor": 2
+          "id": 3,
+          "nombreAutor": "April Tucker",
+          "tipoAutor": 1
+        },
+        {
+          "id": 4,
+          "nombreAutor": "Carlos Abbott",
+          "tipoAutor": 1
         }
       ],
       "id": 1
+    },
+    {
+      "nombreLib": "Provident doloribus",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Novela Teatral"
+      },
+      "edicion": "1",
+      "año": "1955-06-13",
+      "editorial": "Voluptatem Enim et ",
+      "autor": [
+        {
+          "id": 2,
+          "nombreAutor": "Van Henry",
+          "tipoAutor": 2
+        },
+        {
+          "id": 3,
+          "nombreAutor": "April Tucker",
+          "tipoAutor": 1
+        }
+      ],
+      "id": 3
     }
   ]
 }
