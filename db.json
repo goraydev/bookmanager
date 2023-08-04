@@ -6,7 +6,7 @@
         "id": 2,
         "tipoNombre": "Terror"
       },
-      "edicion": "92",
+      "edicion": "2",
       "año": "2002-11-06",
       "editorial": "Exercitationem imped",
       "autor": [
@@ -24,7 +24,7 @@
       "id": 1
     },
     {
-      "nombreLib": "Provident doloribus",
+      "nombreLib": "La joya",
       "tipoLibro": {
         "id": 1,
         "tipoNombre": "Novela Teatral"
@@ -34,17 +34,44 @@
       "editorial": "Voluptatem Enim et ",
       "autor": [
         {
-          "id": 2,
-          "nombreAutor": "Van Henry",
-          "tipoAutor": 2
-        },
-        {
           "id": 3,
           "nombreAutor": "April Tucker",
           "tipoAutor": 1
         }
       ],
       "id": 3
+    }
+  ],
+  "ListaTipoLibro": [
+    {
+      "id": 1,
+      "tipoNombre": "Novela Teatral"
+    },
+    {
+      "id": 2,
+      "tipoNombre": "Terror"
+    }
+  ],
+  "ListaAutores": [
+    {
+      "id": 1,
+      "nombreAutor": "April Tucker",
+      "tipoAutor": 1
+    },
+    {
+      "id": 2,
+      "nombreAutor": "Carlos Abbott",
+      "tipoAutor": 2
+    }
+  ],
+  "ListaTipoAutores": [
+    {
+      "id": 1,
+      "tipoAutor": "Novelista"
+    },
+    {
+      "id": 2,
+      "tipoAutor": "Satírico"
     }
   ]
 }

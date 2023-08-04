@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "./Layout";
 import { useBookStore } from "../../hooks/useBookStore";
 import { Button } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export const Book = () => {
-  const { activeBook } = useBookStore();
+  const { onGetBookById, activeBook } = useBookStore();
+  const { idLibro } = useParams();
 
   const navigate = useNavigate();
 
@@ -15,6 +16,10 @@ export const Book = () => {
       replace: true,
     });
   };
+
+  useEffect(() => {
+    onGetBookById(idLibro);
+  }, [idLibro]);
 
   return (
     <Layout>

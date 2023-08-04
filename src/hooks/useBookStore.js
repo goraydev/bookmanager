@@ -22,6 +22,19 @@ export const useBookStore = () => {
         }
     }
 
+    const onGetBookById = async (id) => {
+        try {
+
+            const { data } = await appAPI.get(`/libros/${id}`);
+
+            dispatch(setActiveBook({ ...data }));
+
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
+
     const onSetBook = async (form) => {
 
 
@@ -84,6 +97,7 @@ export const useBookStore = () => {
         onSetActiveBook,
         onClearAllBook,
         onDeleteBook,
-        onGetBooks
+        onGetBooks,
+        onGetBookById
     }
 }
