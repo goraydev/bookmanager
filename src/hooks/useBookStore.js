@@ -14,7 +14,7 @@ export const useBookStore = () => {
 
         try {
 
-            const { data } = await appAPI.get("/libros");
+            const { data } = await appAPI.get("/ListaLibro");
             dispatch(getBooks(data));
 
         } catch (error) {
@@ -25,7 +25,7 @@ export const useBookStore = () => {
     const onGetBookById = async (id) => {
         try {
 
-            const { data } = await appAPI.get(`/libros/${id}`);
+            const { data } = await appAPI.get(`/ListaLibro/${id}`);
 
             dispatch(setActiveBook({ ...data }));
 
@@ -43,7 +43,7 @@ export const useBookStore = () => {
             if (form.id) {
 
                 //actualizar libro
-                await appAPI.put(`libros/${form.id}`, form);
+                await appAPI.put(`ListaLibro/${form.id}`, form);
                 dispatch(updateBook({ ...form }));
                 dispatch(openOrCloseModal());
                 return;
@@ -51,7 +51,7 @@ export const useBookStore = () => {
 
             //crear libro
 
-            const { data } = await appAPI.post("libros", form);
+            const { data } = await appAPI.post("ListaLibro", form);
 
             dispatch(createNewBook(data));
             dispatch(openOrCloseModal());

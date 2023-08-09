@@ -1,5 +1,5 @@
 {
-  "libros": [
+  "ListaLibro": [
     {
       "nombreLib": "Dolor magnam eos cil",
       "tipoLibro": {
@@ -17,6 +17,24 @@
         }
       ],
       "id": 4
+    },
+    {
+      "nombreLib": "Eu accusamus lorem m",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Novela Teatral"
+      },
+      "edicion": "2",
+      "año": "1965-04-07",
+      "editorial": "Sit dolor magna et ",
+      "autor": [
+        {
+          "id": 1,
+          "nombreAutor": "Oliver Hansen",
+          "tipoAutor": 2
+        }
+      ],
+      "id": 5
     }
   ],
   "ListaTipoLibro": [
