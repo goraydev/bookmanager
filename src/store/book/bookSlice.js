@@ -4,7 +4,7 @@ const initialState = {
     isLoadingBooks: true,
     activeBook: null,
     books: [],
-    listaTipoLibro: [],
+    listTypeBook: [],
 }
 
 export const bookSlice = createSlice({
