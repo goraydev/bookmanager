@@ -1,24 +1,6 @@
 {
   "ListaLibro": [
     {
-      "nombreLib": "Dolor magnam eos cil",
-      "tipoLibro": {
-        "id": 1,
-        "tipoNombre": "Novela Teatral"
-      },
-      "edicion": "99",
-      "año": "1939-11-08",
-      "editorial": "Quia fugiat cupidit",
-      "autor": [
-        {
-          "id": 3,
-          "nombreAutor": "April Tucker",
-          "tipoAutor": 1
-        }
-      ],
-      "id": 4
-    },
-    {
       "nombreLib": "Eu accusamus lorem m",
       "tipoLibro": {
         "id": 1,
@@ -35,6 +17,24 @@
         }
       ],
       "id": 5
+    },
+    {
+      "nombreLib": "Occaecat velit in op",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Novela Teatral"
+      },
+      "edicion": "76",
+      "año": "1927-07-28",
+      "editorial": "Sed ut proident sap",
+      "autor": [
+        {
+          "id": 3,
+          "nombreAutor": "April Tucker",
+          "tipoAutor": 1
+        }
+      ],
+      "id": 7
     }
   ],
   "ListaTipoLibro": [
