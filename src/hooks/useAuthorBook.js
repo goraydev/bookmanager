@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import appAPI from "../API/appAPI";
-import { getAuthors } from "../store/author/authorSlice";
+import { getAuthors, getTypeAuthors } from "../store/author/authorSlice";
 
 export const useAuthorBook = () => {
 
@@ -21,6 +21,17 @@ export const useAuthorBook = () => {
 
     }
 
+    const onGetTypeAuthors = async () => {
+        try {
+
+            const { data } = await appAPI.get("/ListaTipoAutores");
+            dispatch(getTypeAuthors(data));
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
 
     return {
 
@@ -29,6 +40,7 @@ export const useAuthorBook = () => {
         typeAuthors,
 
         //methos
-        onGetListAuthors
+        onGetListAuthors,
+        onGetTypeAuthors,
     }
 }

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import { clearAllBook, createNewBook, deleteBook, getBooks, setActiveBook, updateBook } from "../store/book/bookSlice";
+import { clearAllBook, createNewBook, deleteBook, getBooks, getTypeBooks, setActiveBook, updateBook } from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 import appAPI from "../API/appAPI";
 
 export const useBookStore = () => {
 
 
-    const { activeBook, books } = useSelector(state => state.book);
+    const { activeBook, books, listTypeBook } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
 
@@ -19,6 +19,17 @@ export const useBookStore = () => {
 
         } catch (error) {
             console.error(error);
+        }
+    }
+
+
+    const onGetTypeBooks = async () => {
+        try {
+
+            const { data } = await appAPI.get("/ListaTipoLibro");
+            dispatch(getTypeBooks(data));
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -91,6 +102,7 @@ export const useBookStore = () => {
         //states
         books,
         activeBook,
+        listTypeBook,
 
         //methods
         onSetBook,
@@ -98,6 +110,7 @@ export const useBookStore = () => {
         onClearAllBook,
         onDeleteBook,
         onGetBooks,
+        onGetTypeBooks,
         onGetBookById
     }
 }

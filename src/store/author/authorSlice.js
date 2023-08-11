@@ -11,6 +11,8 @@ export const authorSlice = createSlice({
     reducers: {
 
         getAuthors: (state, { payload }) => {
+
+
             state.listAuthors = payload;
         },
 

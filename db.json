@@ -19,22 +19,22 @@
       "id": 5
     },
     {
-      "nombreLib": "Occaecat velit in op",
+      "nombreLib": "Nuevo libro",
       "tipoLibro": {
-        "id": 1,
-        "tipoNombre": "Novela Teatral"
+        "id": 2,
+        "tipoNombre": "Terror"
       },
-      "edicion": "76",
-      "año": "1927-07-28",
-      "editorial": "Sed ut proident sap",
+      "edicion": "82",
+      "año": "1991-10-24",
+      "editorial": "Iusto pariatur Dolo",
       "autor": [
         {
-          "id": 3,
+          "id": 1,
           "nombreAutor": "April Tucker",
           "tipoAutor": 1
         }
       ],
-      "id": 7
+      "id": 8
     }
   ],
   "ListaTipoLibro": [

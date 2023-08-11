@@ -12,7 +12,12 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useUiStore, useForm, useBookStore } from "../../hooks";
+import {
+  useUiStore,
+  useForm,
+  useBookStore,
+  useAuthorBook,
+} from "../../hooks";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import toast, { Toaster } from "react-hot-toast";
@@ -44,8 +49,9 @@ const autores = [
 
 export const FormBook = () => {
   const { modal, calledModal, msg, onSendMessage } = useUiStore();
-  const { activeBook } = useBookStore();
-  const { onSetBook } = useBookStore();
+  const { listAuthors, onGetListAuthors } = useAuthorBook();
+  const { activeBook, onSetBook, onGetTypeBooks, listTypeBook } =
+    useBookStore();
   const [tipoId, setTipoId] = useState("");
   const [personName, setPersonName] = useState([]);
 
@@ -120,6 +126,8 @@ export const FormBook = () => {
   };
 
   useEffect(() => {
+    onGetTypeBooks();
+    onGetListAuthors();
     if (activeBook !== null) {
       setFormState({ ...activeBook });
       return;
@@ -229,7 +237,7 @@ export const FormBook = () => {
               <Autocomplete
                 multiple
                 id="tags-standard-authorbook"
-                options={autores}
+                options={listAuthors}
                 getOptionLabel={(option) => option.nombreAutor}
                 className="w-full"
                 value={personName}
@@ -264,8 +272,8 @@ export const FormBook = () => {
                   <MenuItem value="">
                     <em>Ninguno</em>
                   </MenuItem>
-                  {tipoLibros &&
-                    tipoLibros.map((tipo) => (
+                  {listTypeBook &&
+                    listTypeBook.map((tipo) => (
                       <MenuItem value={tipo.id} key={tipo.id}>
                         {tipo.tipoNombre}
                       </MenuItem>

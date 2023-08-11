@@ -4,7 +4,7 @@ import { useAuthorBook } from "../../hooks";
 
 export const Authors = () => {
   const { onGetListAuthors } = useAuthorBook();
-  
+
   useEffect(() => {
     onGetListAuthors();
   }, []);

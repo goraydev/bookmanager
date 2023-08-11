@@ -16,6 +16,9 @@ export const bookSlice = createSlice({
             state.isLoadingBooks = false;
             state.books = payload;
         },
+        getTypeBooks: (state, { payload }) => {
+            state.listTypeBook = payload;
+        },
         setActiveBook: (state, { payload }) => {
             state.activeBook = payload;
         },
@@ -47,6 +50,7 @@ export const bookSlice = createSlice({
 
 export const {
     getBooks,
+    getTypeBooks,
     setActiveBook,
     createNewBook,
     updateBook,
