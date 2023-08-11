@@ -4,9 +4,23 @@ import { Box, Button, Divider, IconButton, Tooltip } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
 import { Delete, Edit, FileDownload, Visibility } from "@mui/icons-material";
 import { MRT_Localization_ES } from "material-react-table/locales/es";
+import { useUiStore } from "../../hooks/useUiStore";
+import toast, { Toaster } from "react-hot-toast";
 
 export const TableAuthors = () => {
-  const { listAuthors } = useAuthorBook();
+  const { listAuthors, onSetActiveAuthor, onDeleteAuthor } = useAuthorBook();
+  const { onCloseModal } = useUiStore();
+
+  const handleDeleteRow = (row) => {
+    const { original } = row;
+    toast.success("Eliminado con éxito");
+    onDeleteAuthor(original);
+  };
+
+  const handleEditAuthor = (row) => {
+    const { original } = row;
+    onSetActiveAuthor(original);
+  };
 
   const columns = useMemo(
     () => [
@@ -26,7 +40,7 @@ export const TableAuthors = () => {
 
   return (
     <div className="my-4">
-      {/* <Toaster /> */}
+      <Toaster />
       <h1 className="text-2xl font-bold my-2">Autores registrados</h1>
       <Divider />
       <Box sx={{ overflow: "auto" }}>
@@ -49,18 +63,16 @@ export const TableAuthors = () => {
             renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
                 <Tooltip arrow placement="top" title="Edit">
-                  <IconButton>
+                  <IconButton onClick={() => handleEditAuthor(row)}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
                 <Tooltip arrow placement="top" title="Delete">
-                  <IconButton color="error">
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDeleteRow(row)}
+                  >
                     <Delete />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip arrow placement="top" title="Ver detalles">
-                  <IconButton color="info">
-                    <Visibility />
                   </IconButton>
                 </Tooltip>
               </Box>

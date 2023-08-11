@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Alert,
-  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -64,7 +63,8 @@ export const FormAuthor = () => {
         return;
       }
     } else {
-      formState.tipoAutorId = tipoId !== "" ? tipoId : activeBook.tipoAutorId;
+      formState.tipoAutorId =
+        tipoId !== "" ? tipoId : activeAuthorBook.tipoAutorId;
     }
 
     //notify
@@ -94,7 +94,7 @@ export const FormAuthor = () => {
       nombreAutor: "",
       tipoAutorId: 0,
     });
-  }, []);
+  }, [activeAuthorBook]);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import appAPI from "../API/appAPI";
-import { createNewAuthor, getAuthors, getTypeAuthors, updateAuthor } from "../store/author/authorSlice";
+import { createNewAuthor, deleteAuthor, getAuthors, getTypeAuthors, setActiveAuthorBook, updateAuthor } from "../store/author/authorSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useAuthorBook = () => {
@@ -61,7 +61,7 @@ export const useAuthorBook = () => {
     }
 
     const onSetActiveAuthor = (authorBook) => {
-        dispatch(setActiveBook(authorBook));
+        dispatch(setActiveAuthorBook(authorBook));
         dispatch(openOrCloseModal());
     }
 
@@ -70,7 +70,7 @@ export const useAuthorBook = () => {
 
 
             await appAPI.delete(`/ListaAutores/${payload.id}`);
-            dispatch(deleteBook(payload.id));
+            dispatch(deleteAuthor(payload.id));
 
         } catch (error) {
             console.error(error)

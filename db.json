@@ -49,24 +49,14 @@
   ],
   "ListaAutores": [
     {
-      "id": 1,
-      "nombreAutor": "April Tucker",
-      "tipoAutorId": 1
-    },
-    {
-      "id": 2,
-      "nombreAutor": "Carlos Abbott",
-      "tipoAutorId": 2
-    },
-    {
-      "nombreAutor": "Cervantes",
-      "tipoAutorId": 1,
-      "id": 3
-    },
-    {
-      "nombreAutor": "Dante Aliguieri",
-      "tipoAutorId": 1,
+      "nombreAutor": "César Vallejo",
+      "tipoAutorId": 2,
       "id": 4
+    },
+    {
+      "nombreAutor": "Aliqua Ex quaerat d",
+      "tipoAutorId": 1,
+      "id": 5
     }
   ],
   "ListaTipoAutores": [
