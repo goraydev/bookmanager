@@ -16,7 +16,7 @@ export const TableAuthors = () => {
         size: 150,
       },
       {
-        accessorKey: "tipoAutor",
+        accessorKey: "tipoAutorId",
         header: "Tipo",
         size: 150,
       },

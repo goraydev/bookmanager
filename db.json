@@ -1,24 +1,6 @@
 {
   "ListaLibro": [
     {
-      "nombreLib": "Eu accusamus lorem m",
-      "tipoLibro": {
-        "id": 1,
-        "tipoNombre": "Novela Teatral"
-      },
-      "edicion": "2",
-      "año": "1965-04-07",
-      "editorial": "Sit dolor magna et ",
-      "autor": [
-        {
-          "id": 1,
-          "nombreAutor": "Oliver Hansen",
-          "tipoAutor": 2
-        }
-      ],
-      "id": 5
-    },
-    {
       "nombreLib": "Nuevo libro",
       "tipoLibro": {
         "id": 2,
@@ -35,6 +17,24 @@
         }
       ],
       "id": 8
+    },
+    {
+      "nombreLib": "Iste labore aliquid ",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Novela Teatral"
+      },
+      "edicion": "58",
+      "año": "1998-03-13",
+      "editorial": "Est voluptate quisqu",
+      "autor": [
+        {
+          "id": 1,
+          "nombreAutor": "April Tucker",
+          "tipoAutor": 1
+        }
+      ],
+      "id": 9
     }
   ],
   "ListaTipoLibro": [
@@ -51,12 +51,22 @@
     {
       "id": 1,
       "nombreAutor": "April Tucker",
-      "tipoAutor": 1
+      "tipoAutorId": 1
     },
     {
       "id": 2,
       "nombreAutor": "Carlos Abbott",
-      "tipoAutor": 2
+      "tipoAutorId": 2
+    },
+    {
+      "nombreAutor": "Cervantes",
+      "tipoAutorId": 1,
+      "id": 3
+    },
+    {
+      "nombreAutor": "Dante Aliguieri",
+      "tipoAutorId": 1,
+      "id": 4
     }
   ],
   "ListaTipoAutores": [
@@ -66,7 +76,7 @@
     },
     {
       "id": 2,
-      "tipoAutor": "Satírico"
+      "tipoAutor": "Poeta"
     }
   ]
 }

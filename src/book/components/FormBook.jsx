@@ -5,19 +5,13 @@ import {
   Button,
   Modal,
   TextField,
-  Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import {
-  useUiStore,
-  useForm,
-  useBookStore,
-  useAuthorBook,
-} from "../../hooks";
+import { useUiStore, useForm, useBookStore, useAuthorBook } from "../../hooks";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import toast, { Toaster } from "react-hot-toast";
@@ -34,18 +28,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-const tipoLibros = [
-  { id: 1, tipoNombre: "Novela Teatral" },
-  { id: 2, tipoNombre: "Terror" },
-];
-
-const autores = [
-  { id: 1, nombreAutor: "Oliver Hansen", tipoAutor: 2 },
-  { id: 2, nombreAutor: "Van Henry", tipoAutor: 2 },
-  { id: 3, nombreAutor: "April Tucker", tipoAutor: 1 },
-  { id: 4, nombreAutor: "Carlos Abbott", tipoAutor: 1 },
-];
 
 export const FormBook = () => {
   const { modal, calledModal, msg, onSendMessage } = useUiStore();
@@ -85,7 +67,7 @@ export const FormBook = () => {
     e.preventDefault();
 
     if (activeBook === null) {
-      const allBookSelected = tipoLibros.find((book) => book.id === tipoId);
+      const allBookSelected = listTypeBook.find((book) => book.id === tipoId);
       formState.tipoLibro = allBookSelected;
       formState.autor = personName;
 
@@ -101,7 +83,7 @@ export const FormBook = () => {
       formState.autor = personName.length > 0 ? personName : activeBook.autor;
       formState.tipoLibro =
         tipoId !== ""
-          ? tipoLibros.find((book) => book.id === tipoId)
+          ? listTypeBook.find((book) => book.id === tipoId)
           : activeBook.tipoLibro;
     }
 

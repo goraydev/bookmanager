@@ -1,9 +1,22 @@
-import { useEffect } from "react";
-import { Autocomplete, Box, Button, Modal, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  Autocomplete,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+} from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useAuthorBook } from "../../hooks/useAuthorBook";
+import { useForm } from "../../hooks";
+import toast, { Toaster } from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -18,16 +31,69 @@ const style = {
 };
 
 export const FormAuthor = () => {
-  const { modal, calledModal } = useUiStore();
-  const { typeAuthors, onGetTypeAuthors } = useAuthorBook();
+  const { modal, calledModal, msg, onSendMessage } = useUiStore();
+  const { typeAuthors, activeAuthorBook, onGetTypeAuthors, onSetAuhor } =
+    useAuthorBook();
+  const [tipoId, setTipoId] = useState("");
 
+  let {
+    formState,
+    formState: { nombreAutor, tipoAutorId },
+    onInputChange,
+    setFormState,
+    onResetForm,
+  } = useForm({
+    nombreAutor: "",
+    tipoAutorId: 0,
+  });
   const handleModalBook = () => {
     calledModal();
   };
 
+  const handleChangeTypeAuthor = (event) => {
+    setTipoId(event.target.value);
+  };
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+
+    if (activeAuthorBook == null) {
+      formState.tipoAutorId = tipoId;
+      if (nombreAutor === "" || tipoId === "") {
+        onSendMessage("Faltan campos por llenar");
+        return;
+      }
+    } else {
+      formState.tipoAutorId = tipoId !== "" ? tipoId : activeBook.tipoAutorId;
+    }
+
+    //notify
+
+    if (activeAuthorBook !== null) {
+      toast.success("Autor actualizado exitosamente", {
+        duration: 2000,
+      });
+    } else {
+      toast.success("Autor creado exitosamente", {
+        duration: 2000,
+      });
+    }
+
+    onSetAuhor(formState);
+    setTipoId("");
+    onResetForm();
+  };
+
   useEffect(() => {
     onGetTypeAuthors();
-    
+    if (activeAuthorBook !== null) {
+      setFormState({ ...activeAuthorBook });
+      return;
+    }
+    setFormState({
+      nombreAutor: "",
+      tipoAutorId: 0,
+    });
   }, []);
 
   return (
@@ -41,6 +107,7 @@ export const FormAuthor = () => {
         Nuevo autor
         <AddCircleOutlineIcon />
       </Button>
+      <Toaster />
       <Modal
         open={modal}
         onClose={calledModal}
@@ -55,34 +122,50 @@ export const FormAuthor = () => {
             <h1 className="text-3xl text-center font-bold my-2">
               Formulario de datos del autor
             </h1>
+            {msg !== "" && (
+              <Alert severity="error" className="my-2">
+                {msg}
+              </Alert>
+            )}
             <form
               action=""
               className="flex flex-wrap gap-4 bg-white rounded-md"
+              onSubmit={handleSubmitForm}
             >
               <TextField
                 id="standard-basic-author"
                 label="Nombre del autor"
                 variant="standard"
-                name="nameAuthor"
                 className="w-full"
+                name="nombreAutor"
+                value={nombreAutor}
+                onChange={onInputChange}
               />
 
-              <Autocomplete
-                id="tags-standard-type"
-                options={typeAuthors}
-                getOptionLabel={(option) => option.tipoAutor}
-                className="w-full"
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Tipo de autor"
-                    placeholder="Ingrese nombre del tipo"
-                  />
-                )}
-              />
+              <FormControl variant="standard" className="w-full">
+                <InputLabel id="demo-simple-select-standard-label">
+                  Tipo de autor
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  label="Tipo libro"
+                  value={tipoId}
+                  onChange={handleChangeTypeAuthor}
+                >
+                  <MenuItem value="">
+                    <em>Ninguno</em>
+                  </MenuItem>
+                  {typeAuthors &&
+                    typeAuthors.map((tipo) => (
+                      <MenuItem value={tipo.id} key={tipo.id}>
+                        {tipo.tipoAutor}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
               <Button variant="contained" size="large" type="submit">
-                Crear
+                {activeAuthorBook !== null ? "Actualizar" : "Crear"}
               </Button>
             </form>
           </div>
