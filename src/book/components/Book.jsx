@@ -62,7 +62,7 @@ export const Book = () => {
             Editorial:{" "}
             <span className="text-slate-400">{activeBook?.editorial}</span>
           </p>
-          <p>Autor o Autor(es) </p>
+          <p>Autor(es) </p>
 
           <ul className="divide-y divide-slate-100 pb-2">
             {activeBook &&

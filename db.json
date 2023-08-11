@@ -35,6 +35,24 @@
         }
       ],
       "id": 9
+    },
+    {
+      "nombreLib": "Heraldos Negros",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Novela Teatral"
+      },
+      "edicion": "2",
+      "año": "2011-06-04",
+      "editorial": "Voluptates architect",
+      "autor": [
+        {
+          "nombreAutor": "César Vallejo",
+          "tipoAutorId": 2,
+          "id": 4
+        }
+      ],
+      "id": 10
     }
   ],
   "ListaTipoLibro": [
@@ -54,9 +72,9 @@
       "id": 4
     },
     {
-      "nombreAutor": "Aliqua Ex quaerat d",
+      "nombreAutor": "Julio Verne",
       "tipoAutorId": 1,
-      "id": 5
+      "id": 6
     }
   ],
   "ListaTipoAutores": [
