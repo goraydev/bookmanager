@@ -78,13 +78,13 @@ export const TableBooks = () => {
 
   const csvExporter = new ExportToCsv(csvOptions);
 
-  const handleExportData = (rows) => {
-    const dataExport = rows.map((row) => {
+  const handleExportData = () => {
+    const dataExport = books.map((book) => {
+      const autores = book.autor.map((autor) => autor.nombreAutor).join(", ");
       return {
-        ...row.original,
-        tipoLibro: row.original.tipoLibro
-          ? row.original.tipoLibro.tipoNombre
-          : "",
+        ...book,
+        tipoLibro: book.tipoLibro.tipoNombre,
+        autor: autores,
       };
     });
 
@@ -150,9 +150,7 @@ export const TableBooks = () => {
                 <Button
                   color="success"
                   //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-                  onClick={() =>
-                    handleExportData(table.getPrePaginationRowModel().rows)
-                  }
+                  onClick={() => handleExportData()}
                   startIcon={<FileDownload />}
                   variant="contained"
                 >

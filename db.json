@@ -1,68 +1,91 @@
 {
   "ListaLibro": [
     {
-      "nombreLib": "Nuevo libro",
+      "nombreLib": "Est consequatur est ",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Obra litearia"
+      },
+      "edicion": "25",
+      "año": "1900",
+      "editorial": "Est omnis voluptates",
+      "autor": [
+        {
+          "nombreAutor": "MINEDU",
+          "tipoAutorId": 1,
+          "id": 7
+        }
+      ],
+      "id": 12
+    },
+    {
+      "nombreLib": "Est adipisicing arch",
       "tipoLibro": {
         "id": 2,
-        "tipoNombre": "Terror"
+        "tipoNombre": "Narrativo"
       },
-      "edicion": "82",
-      "año": "1991-10-24",
-      "editorial": "Iusto pariatur Dolo",
-      "autor": [
-        {
-          "id": 1,
-          "nombreAutor": "April Tucker",
-          "tipoAutor": 1
-        }
-      ],
-      "id": 8
-    },
-    {
-      "nombreLib": "Iste labore aliquid ",
-      "tipoLibro": {
-        "id": 1,
-        "tipoNombre": "Novela Teatral"
-      },
-      "edicion": "58",
-      "año": "1998-03-13",
-      "editorial": "Est voluptate quisqu",
-      "autor": [
-        {
-          "id": 1,
-          "nombreAutor": "April Tucker",
-          "tipoAutor": 1
-        }
-      ],
-      "id": 9
-    },
-    {
-      "nombreLib": "Heraldos Negros",
-      "tipoLibro": {
-        "id": 1,
-        "tipoNombre": "Novela Teatral"
-      },
-      "edicion": "2",
-      "año": "2011-06-04",
-      "editorial": "Voluptates architect",
+      "edicion": "35",
+      "año": "1900",
+      "editorial": "Sint voluptatum dol",
       "autor": [
         {
           "nombreAutor": "César Vallejo",
           "tipoAutorId": 2,
           "id": 4
+        },
+        {
+          "nombreAutor": "Julio Verne",
+          "tipoAutorId": 1,
+          "id": 6
         }
       ],
-      "id": 10
+      "id": 13
+    },
+    {
+      "nombreLib": "Aut eos at nostrud ",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Obra litearia"
+      },
+      "edicion": "22",
+      "año": "2007",
+      "editorial": "Dolorum quo quisquam",
+      "autor": [
+        {
+          "nombreAutor": "Julio Verne",
+          "tipoAutorId": 1,
+          "id": 6
+        }
+      ],
+      "id": 14
+    },
+    {
+      "nombreLib": "Possimus enim autem",
+      "tipoLibro": {
+        "id": 1,
+        "tipoNombre": "Obra litearia"
+      },
+      "edicion": "33",
+      "año": "2008",
+      "editorial": "Cupiditate sed dolor",
+      "autor": [
+        {
+          "nombreAutor": "Julio Verne",
+          "tipoAutorId": 1,
+          "id": 6
+        }
+      ],
+      "id": 15
     }
   ],
   "ListaTipoLibro": [
     {
       "id": 1,
-      "tipoNombre": "Novela Teatral"
+      "tipoNombre": "Obra litearia"
     },
     {
       "id": 2,
-      "tipoNombre": "Terror"
+      "tipoNombre": "Narrativo"
     }
   ],
   "ListaAutores": [
@@ -75,6 +98,11 @@
       "nombreAutor": "Julio Verne",
       "tipoAutorId": 1,
       "id": 6
+    },
+    {
+      "nombreAutor": "MINEDU",
+      "tipoAutorId": 1,
+      "id": 7
     }
   ],
   "ListaTipoAutores": [

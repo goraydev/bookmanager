@@ -183,7 +183,7 @@ export const FormBook = () => {
               <TextField
                 id="standard-basic3"
                 label="Año"
-                type="date"
+                type="number"
                 variant="standard"
                 name="año"
                 value={año}
@@ -194,7 +194,7 @@ export const FormBook = () => {
                 InputProps={{
                   inputProps: {
                     max: new Date().toISOString().split("T")[0],
-                    min: "1900-01-01",
+                    min: "1900",
                   },
                 }}
               />
@@ -236,13 +236,13 @@ export const FormBook = () => {
 
               {activeBook && (
                 <Alert severity="info" className="w-full mt-4">
-                  <strong>Tipo de libro actual: {""}</strong>
+                  <strong>Tipo actual: {""}</strong>
                   {activeBook.tipoLibro.tipoNombre}
                 </Alert>
               )}
               <FormControl variant="standard" className="w-full">
                 <InputLabel id="demo-simple-select-standard-label">
-                  Tipo de libro
+                  Tipo
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
