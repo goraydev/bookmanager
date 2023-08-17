@@ -114,5 +114,13 @@
       "id": 2,
       "tipoAutor": "Poeta"
     }
-  ]
+  ],
+  "login": {
+    "usuario": {
+      "usuarioId": 1,
+      "usu": "dev",
+      "pwsd": "12345678"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDE3NTRmYTg2NzRhMjBiZmI2YmEwNTIiLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNjkyMjMyNTcxLCJleHAiOjE2OTIyMzk3NzF9.x0-95yvXb1dtFbDR-1v3lMx9Xgz79zzH3wy8OeSWQO8"
+  }
 }

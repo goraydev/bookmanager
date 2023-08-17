@@ -12,6 +12,13 @@ const appAPI = axios.create({
 
 
 //Configurar intercepetores 
+appAPI.interceptors.request.use(config => {
 
+    config.headers = {
+        ...config.headers,
+        'token': localStorage.getItem("token")
+    }
+    return config;
+})
 
 export default appAPI;

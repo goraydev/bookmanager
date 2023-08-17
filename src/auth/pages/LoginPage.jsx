@@ -1,11 +1,37 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import provisional from "../../assets/provisional.svg";
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
+import { useForm } from "../../hooks/useForm";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useUiStore } from "../../hooks";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { msg, onSendMessage } = useUiStore();
+  const { onLogin } = useAuthStore();
+
+  const {
+    formState,
+    formState: { usu, pwsd },
+    onInputChange,
+    onResetForm,
+  } = useForm({
+    usu: "",
+    pwsd: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (usu === "" || pwsd === "") {
+      onSendMessage("Faltan campo por llenar");
+      return;
+    }
+
+    onLogin(formState);
+    onResetForm();
+  };
 
   return (
     <main className="lg:h-screen my-10 lg:my-0  grid gap-8 items-center justify-center lg:grid-cols-2">
@@ -14,7 +40,16 @@ export const LoginPage = () => {
       </section>
       <section className="form mx-10">
         <h1 className="my-2 text-3xl text-center font-medium">Login</h1>
-        <form action="" className="my-6 flex flex-col gap-10">
+        {msg !== "" && (
+          <Alert severity="error" className="my-2">
+            {msg}
+          </Alert>
+        )}
+        <form
+          action=""
+          className="my-6 flex flex-col gap-10"
+          onSubmit={handleSubmit}
+        >
           <div className="">
             <div className="relative">
               <input
@@ -22,7 +57,9 @@ export const LoginPage = () => {
                 type="text"
                 placeholder="Nombre de usuario"
                 className="peer relative h-10 w-full border-b border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-sky-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-                name="username"
+                name="usu"
+                value={usu}
+                onChange={onInputChange}
               />
               <label
                 htmlFor="id-b04"
@@ -39,7 +76,9 @@ export const LoginPage = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="peer relative h-10 w-full border-b border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-sky-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-                name="password"
+                name="pwsd"
+                value={pwsd}
+                onChange={onInputChange}
               />
               <label
                 htmlFor="id-b14"
