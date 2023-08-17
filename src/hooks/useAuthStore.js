@@ -6,7 +6,7 @@ import { useUiStore } from "./useUiStore";
 export const useAuthStore = () => {
 
 
-    const { status, message } = useSelector(state => state.auth);
+    const { status, message, user } = useSelector(state => state.auth);
     const { onSendMessage } = useUiStore();
     const dispatch = useDispatch();
 
@@ -35,13 +35,20 @@ export const useAuthStore = () => {
         }
     }
 
+    const onLogout = () => {
+        localStorage.removeItem("token");
+        dispatch(logout());
+    }
+
     return {
 
+        user,
         status,
         message,
 
         //methods
-        onLogin
+        onLogin,
+        onLogout
 
     }
 }
