@@ -139,6 +139,12 @@
       "estadoId": 1,
       "libroid": 12,
       "id": 5
+    },
+    {
+      "codigo": "cod-018",
+      "estadoId": 1,
+      "libroid": 15,
+      "id": 6
     }
   ],
   "login": {
