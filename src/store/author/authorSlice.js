@@ -28,7 +28,7 @@ export const authorSlice = createSlice({
 
         updateAuthor: (state, { payload }) => {
             state.listAuthors = state.listAuthors.map(author => {
-                if (author.id === payload.id) {
+                if (author.autorId === payload.autorId) {
                     return payload;
                 }
                 return author;
@@ -36,7 +36,7 @@ export const authorSlice = createSlice({
         },
 
         deleteAuthor: (state, { payload }) => {
-            state.listAuthors = state.listAuthors.filter(author => author.id !== payload);
+            state.listAuthors = state.listAuthors.filter(author => author.autorId !== payload);
         },
     }
 });

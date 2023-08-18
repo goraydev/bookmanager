@@ -26,7 +26,7 @@ export const useAuthorBook = () => {
         try {
 
             const { data } = await appAPI.get("/ListaTipoAutores");
-            dispatch(getTypeAuthors(data));
+            dispatch(getTypeAuthors(data.resultado));
 
         } catch (error) {
             console.error(error)
@@ -37,9 +37,9 @@ export const useAuthorBook = () => {
     const onSetAuhor = async (formAuthor) => {
         try {
 
-            if (formAuthor.id) {
+            if (formAuthor.autorId) {
                 //actualizar author
-                await appAPI.put(`ListaAutores/${formAuthor.id}`, formAuthor);
+                await appAPI.put(`/updateAutor/${formAuthor.autorId}`, formAuthor);
                 dispatch(updateAuthor({ ...formAuthor }));
                 dispatch(openOrCloseModal());
                 return;
@@ -47,9 +47,10 @@ export const useAuthorBook = () => {
 
 
             //crear nuevo author
-            const { data } = await appAPI.post('ListaAutores', formAuthor);
+            const { data } = await appAPI.post('/CreateAutor', formAuthor);
+            const { autorid, nombreautor, tipoautorid } = data.resultado;
 
-            dispatch(createNewAuthor(data));
+            dispatch(createNewAuthor({ autorid, nombreAutor: nombreautor, tipoAutorId: tipoautorid }));
             dispatch(openOrCloseModal());
 
 
@@ -69,8 +70,8 @@ export const useAuthorBook = () => {
         try {
 
 
-            await appAPI.delete(`/ListaAutores/${payload.id}`);
-            dispatch(deleteAuthor(payload.id));
+            //await appAPI.delete(`/ListaAutores/${payload.id}`);
+            dispatch(deleteAuthor(payload.autorId));
 
         } catch (error) {
             console.error(error)

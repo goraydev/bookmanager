@@ -79,6 +79,7 @@ export const FormAuthor = () => {
       });
     }
 
+
     onSetAuhor(formState);
     setTipoId("");
     onResetForm();
@@ -158,8 +159,8 @@ export const FormAuthor = () => {
                   </MenuItem>
                   {typeAuthors &&
                     typeAuthors.map((tipo) => (
-                      <MenuItem value={tipo.id} key={tipo.id}>
-                        {tipo.tipoAutor}
+                      <MenuItem value={tipo.tipoAutorId} key={tipo.tipoAutorId}>
+                        {tipo.tipoAutor1}
                       </MenuItem>
                     ))}
                 </Select>
