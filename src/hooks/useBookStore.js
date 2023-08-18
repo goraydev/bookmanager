@@ -64,20 +64,21 @@ export const useBookStore = () => {
 
         try {
 
-            if (form.id) {
+            if (form.libroid) {
 
                 //actualizar libro
-                await appAPI.put(`ListaLibro/${form.id}`, form);
-                dispatch(updateBook({ ...form }));
+                const { nombreLib, tipoId, edicion, año, editorial, autor } = form;
+                await appAPI.put(`UpdateLibro/${form.libroid}`, { nombreLib, tipoId, edicion, año, editorial, autor });
+                dispatch(updateBook({ ...form, nombrelib: nombreLib }));
                 dispatch(openOrCloseModal());
                 return;
             }
 
             //crear libro
 
-            const { data } = await appAPI.post("ListaLibro", form);
+            const { data } = await appAPI.post("/CreateLibro", form);
 
-            dispatch(createNewBook(data));
+            dispatch(createNewBook(data.resultado));
             dispatch(openOrCloseModal());
 
 
@@ -89,7 +90,10 @@ export const useBookStore = () => {
     }
 
     const onSetActiveBook = (book) => {
-        dispatch(setActiveBook(book));
+        dispatch(setActiveBook({
+            nombreLib: book.nombrelib,
+            ...book
+        }));
         dispatch(openOrCloseModal());
     }
 
@@ -97,8 +101,8 @@ export const useBookStore = () => {
         try {
 
 
-            await appAPI.delete(`/ListaLibro/${payload.id}`);
-            dispatch(deleteBook(payload.id));
+            //await appAPI.delete(`/ListaLibro/${payload.libroid}`);
+            dispatch(deleteBook(payload.libroid));
 
         } catch (error) {
             console.error(error)

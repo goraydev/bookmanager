@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    isLoadingBooks: true,
     activeBook: null,
     books: [],
     listTypeBook: [],
@@ -15,7 +14,6 @@ export const bookSlice = createSlice({
     reducers: {
 
         getBooks: (state, { payload }) => {
-            state.isLoadingBooks = false;
             state.books = payload;
             state.listInventory = [];
         },
@@ -32,7 +30,7 @@ export const bookSlice = createSlice({
 
         updateBook: (state, { payload }) => {
             state.books = state.books.map(book => {
-                if (book.id === payload.id) {
+                if (book.libroid === payload.libroid) {
                     return payload;
                 }
                 return book;
@@ -41,12 +39,11 @@ export const bookSlice = createSlice({
         },
 
         deleteBook: (state, { payload }) => {
-            state.books = state.books.filter(book => book.id !== payload);
+            state.books = state.books.filter(book => book.libroid !== payload);
         },
         clearAllBook: (state) => {
             //state.books = [];
             state.activeBook = null;
-            state.isLoadingBooks = true;
         },
 
         getInventoryByIdBook: (state, { payload }) => {

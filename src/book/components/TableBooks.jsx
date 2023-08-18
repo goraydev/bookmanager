@@ -38,12 +38,12 @@ export const TableBooks = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "nombreLib", //access nested data with dot notation
+        accessorKey: "nombrelib", //access nested data with dot notation
         header: "Libro",
         size: 150,
       },
       {
-        accessorKey: "tipoLibro.tipoNombre",
+        accessorKey: "tipolibro",
         header: "Tipo",
         size: 150,
       },

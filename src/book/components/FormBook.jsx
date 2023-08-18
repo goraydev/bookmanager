@@ -45,7 +45,7 @@ export const FormBook = () => {
     onResetForm,
   } = useForm({
     nombreLib: "",
-    tipoLibro: {},
+    tipoId: "",
     edicion: "",
     año: "",
     editorial: "",
@@ -67,11 +67,9 @@ export const FormBook = () => {
     e.preventDefault();
 
     if (activeBook === null) {
-      const allBookSelected = listTypeBook.find(
-        (book) => book.tipoLibroId === tipoId
-      );
-      formState.tipoLibro = allBookSelected;
-      formState.autor = personName;
+      formState.tipoId = tipoId;
+      const selectedAuthorIds = personName.map((option) => option.autorId);
+      formState.autor = selectedAuthorIds;
 
       const anyFieldEmpty = [nombreLib, edicion, año, editorial].some(
         (value) => value === ""
@@ -82,11 +80,17 @@ export const FormBook = () => {
         return;
       }
     } else {
-      formState.autor = personName.length > 0 ? personName : activeBook.autor;
-      formState.tipoLibro =
-        tipoId !== ""
-          ? listTypeBook.find((book) => book.tipoLibroId === tipoId)
-          : activeBook.tipoLibro;
+      if (personName.length > 0) {
+        const selectedAuthorIds = personName.map((option) => option.autorId);
+        formState.autor = selectedAuthorIds;
+      } else {
+        const selectedAuthorIds = activeBook.autoresIds.map(
+          (option) => option.autorId
+        );
+        formState.autor = selectedAuthorIds;
+      }
+
+      formState.tipoId = tipoId !== "" ? tipoId : activeBook.tipolibroid;
     }
 
     //notify
@@ -101,7 +105,7 @@ export const FormBook = () => {
       });
     }
 
-    //    console.log(formState);
+    //console.log(formState);
     onSetBook(formState);
 
     setPersonName([]);
@@ -118,7 +122,7 @@ export const FormBook = () => {
     }
     setFormState({
       nombreLib: "",
-      tipoLibro: {},
+      tipoId: {},
       edicion: "",
       año: "",
       editorial: "",
@@ -213,7 +217,7 @@ export const FormBook = () => {
               {activeBook && (
                 <Alert severity="info" className="w-full mt-2">
                   <strong>Autor(es) actual(es): {""}</strong>
-                  {activeBook.autor
+                  {activeBook.autoresIds
                     .map((element) => element.nombreAutor)
                     .join(", ")}
                 </Alert>
@@ -239,7 +243,7 @@ export const FormBook = () => {
               {activeBook && (
                 <Alert severity="info" className="w-full mt-4">
                   <strong>Tipo actual: {""}</strong>
-                  {activeBook.tipoLibro.tipoNombre}
+                  {activeBook.tipolibro}
                 </Alert>
               )}
               <FormControl variant="standard" className="w-full">
