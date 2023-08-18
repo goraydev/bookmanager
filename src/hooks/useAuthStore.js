@@ -17,22 +17,38 @@ export const useAuthStore = () => {
         try {
 
 
-            const { data } = await appAPI.get("login");
-            const { usu, pwsd } = data.usuario;
-            if (form.usu === usu && form.pwsd === pwsd) {
-
-                localStorage.setItem("token", data.token);
-                dispatch(login({ usu: data.usuario.usu, uid: data.usuario.usuarioId }));
-                return;
-            }
-
-            dispatch(logout());
-            onSendMessage("Usuario no existe");
+            const { data } = await appAPI.post("/Login", form);
+            localStorage.setItem("token", data.resultado.token);
+            const { usu, usuarioid } = data.resultado.usuario;
+            dispatch(login({ usu: usu, uid: usuarioid }));
 
 
         } catch (error) {
+
+            dispatch(logout());
+            onSendMessage("Usuario no existe");
             console.error(error)
         }
+    }
+
+    const checkSession = async () => {
+
+        const token = localStorage.getItem("token");
+        if (!token) return dispatch(logout());
+
+        try {
+
+
+            localStorage.getItem("token");
+            dispatch(login());
+
+
+        } catch (error) {
+            localStorage.removeItem("token");
+            dispatch(logout());
+            console.error(error)
+        }
+
     }
 
     const onLogout = () => {
@@ -48,7 +64,8 @@ export const useAuthStore = () => {
 
         //methods
         onLogin,
-        onLogout
+        onLogout,
+        checkSession,
 
     }
 }

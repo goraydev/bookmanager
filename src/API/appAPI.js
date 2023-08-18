@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import { getEnvariables } from "../helpers/getEnvariables";
+
 
 const { VITE_API_URL } = getEnvariables();
 
@@ -16,7 +16,7 @@ appAPI.interceptors.request.use(config => {
 
     config.headers = {
         ...config.headers,
-        'token': localStorage.getItem("token")
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
     }
     return config;
 })

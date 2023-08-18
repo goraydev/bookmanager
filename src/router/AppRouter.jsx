@@ -3,9 +3,14 @@ import { useAuthStore } from "../hooks/useAuthStore";
 import { Book, Layout } from "../book/components";
 import { Home, Books, Authors } from "../book/pages";
 import { LoginPage } from "../auth/pages";
+import { useEffect } from "react";
 
 export const AppRouter = () => {
-  const { status, errorMessage } = useAuthStore();
+  const { status, errorMessage, checkSession } = useAuthStore();
+
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   if (status === "checking") {
     return <div>Cargando...</div>;
