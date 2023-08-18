@@ -28,7 +28,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get("/ListaLibro");
-            dispatch(getBooks(data));
+            dispatch(getBooks(data.resultado));
 
         } catch (error) {
             console.error(error);
@@ -40,7 +40,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get("/ListaTipoLibro");
-            dispatch(getTypeBooks(data));
+            dispatch(getTypeBooks(data.resultado));
         } catch (error) {
             console.error(error)
         }

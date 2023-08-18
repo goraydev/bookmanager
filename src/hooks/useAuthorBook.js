@@ -14,7 +14,7 @@ export const useAuthorBook = () => {
         try {
 
             const { data } = await appAPI.get("/ListaAutores");
-            dispatch(getAuthors(data));
+            dispatch(getAuthors(data.resultado));
 
         } catch (error) {
             console.error(error);

@@ -67,7 +67,9 @@ export const FormBook = () => {
     e.preventDefault();
 
     if (activeBook === null) {
-      const allBookSelected = listTypeBook.find((book) => book.id === tipoId);
+      const allBookSelected = listTypeBook.find(
+        (book) => book.tipoLibroId === tipoId
+      );
       formState.tipoLibro = allBookSelected;
       formState.autor = personName;
 
@@ -83,7 +85,7 @@ export const FormBook = () => {
       formState.autor = personName.length > 0 ? personName : activeBook.autor;
       formState.tipoLibro =
         tipoId !== ""
-          ? listTypeBook.find((book) => book.id === tipoId)
+          ? listTypeBook.find((book) => book.tipoLibroId === tipoId)
           : activeBook.tipoLibro;
     }
 
@@ -256,8 +258,8 @@ export const FormBook = () => {
                   </MenuItem>
                   {listTypeBook &&
                     listTypeBook.map((tipo) => (
-                      <MenuItem value={tipo.id} key={tipo.id}>
-                        {tipo.tipoNombre}
+                      <MenuItem value={tipo.tipoLibroId} key={tipo.tipoLibroId}>
+                        {tipo.tipoLibro1}
                       </MenuItem>
                     ))}
                 </Select>
