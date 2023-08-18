@@ -5,6 +5,8 @@ const initialState = {
     activeBook: null,
     books: [],
     listTypeBook: [],
+    listInventory: [],
+    activeInventory: null
 }
 
 export const bookSlice = createSlice({
@@ -15,6 +17,7 @@ export const bookSlice = createSlice({
         getBooks: (state, { payload }) => {
             state.isLoadingBooks = false;
             state.books = payload;
+            state.listInventory = [];
         },
         getTypeBooks: (state, { payload }) => {
             state.listTypeBook = payload;
@@ -44,7 +47,32 @@ export const bookSlice = createSlice({
             //state.books = [];
             state.activeBook = null;
             state.isLoadingBooks = true;
+        },
+
+        getInventoryByIdBook: (state, { payload }) => {
+            state.listInventory = payload;
+        },
+
+        createNewInventory: (state, { payload }) => {
+            state.listInventory.push(payload);
+            state.activeInventory = null;
+        },
+
+        updateInventory: (state, { payload }) => {
+            state.listInventory = state.listInventory.map(inv => {
+                if (inv.id === payload.id) {
+                    return payload;
+                }
+                return inv;
+            })
+            state.activeInventory = null;
+        },
+
+        deleteInventory: (state, { payload }) => {
+            state.listInventory = state.listInventory.filter(inv => inv.id !== payload);
         }
+
+
     }
 });
 
@@ -56,4 +84,8 @@ export const {
     updateBook,
     deleteBook,
     clearAllBook,
+    getInventoryByIdBook,
+    createNewInventory,
+    updateInventory,
+    deleteInventory
 } = bookSlice.actions

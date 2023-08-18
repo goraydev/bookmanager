@@ -4,6 +4,8 @@ import { useBookStore } from "../../hooks/useBookStore";
 import { Button } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate, useParams } from "react-router";
+import bookimage from "../../assets/book.svg";
+import { TableInventory } from "./TableInventory";
 
 export const Book = () => {
   const { onGetBookById, activeBook } = useBookStore();
@@ -23,17 +25,17 @@ export const Book = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row">
+      <div className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row h-96">
         {/*  <!-- Image --> */}
         <figure className="flex-1">
           <img
-            src="https://picsum.photos/id/118/800/600"
-            alt="card image"
-            className="object-cover min-h-full aspect-auto"
+            src={bookimage}
+            alt="imagen de libro"
+            className="object-contain"
           />
         </figure>
         {/*  <!-- Body--> */}
-        <div className="flex-1 p-6 sm:mx-6 sm:px-0 flex flex-col justify-stretch">
+        <div className="flex-1 p-6 sm:mx-6 sm:px-0 h-full flex flex-col justify-between items-stretch">
           <header className="flex gap-4 mb-4">
             <div>
               <h3 className="text-4xl font-medium text-slate-700">
@@ -82,6 +84,8 @@ export const Book = () => {
           </Button>
         </div>
       </div>
+      <TableInventory />
+      
       {/*<!-- End Horizontal card--> */}
     </Layout>
   );

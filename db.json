@@ -115,6 +115,31 @@
       "tipoAutor": "Poeta"
     }
   ],
+  "ListaInventario": [
+    {
+      "id": 3,
+      "libroid": 12,
+      "estadoid": 1,
+      "codigo": "cod-001",
+      "descripcion": "bueno",
+      "valor": 1,
+      "color": "verde"
+    },
+    {
+      "id": 4,
+      "libroid": 13,
+      "estadoid": 1,
+      "codigo": "cod-002",
+      "descripcion": "regular",
+      "valor": 1,
+      "color": "rojo"
+    },
+    {
+      "codigo": "cod-003",
+      "estadoId": 1,
+      "id": 5
+    }
+  ],
   "login": {
     "usuario": {
       "usuarioId": 1,

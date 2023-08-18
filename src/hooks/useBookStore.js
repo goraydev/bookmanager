@@ -1,12 +1,22 @@
 import { useDispatch, useSelector } from "react-redux"
-import { clearAllBook, createNewBook, deleteBook, getBooks, getTypeBooks, setActiveBook, updateBook } from "../store/book/bookSlice";
+import {
+    clearAllBook,
+    createNewBook,
+    createNewInventory,
+    deleteBook,
+    getBooks,
+    getInventoryByIdBook,
+    getTypeBooks,
+    setActiveBook,
+    updateBook
+} from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 import appAPI from "../API/appAPI";
 
 export const useBookStore = () => {
 
 
-    const { activeBook, books, listTypeBook } = useSelector(state => state.book);
+    const { activeBook, books, listTypeBook, listInventory, activeInventory } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
 
@@ -97,12 +107,49 @@ export const useBookStore = () => {
         dispatch(clearAllBook());
     }
 
+    //inventory
+    const onGetInventoryById = async (id) => {
+
+        try {
+
+            const { data } = await appAPI.get(`/ListaInventario`);
+            const result = data.filter(inv => inv.libroid === Number(id));
+            dispatch(getInventoryByIdBook(result));
+
+
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
+
+    const onSetInventory = async (form) => {
+
+        try {
+
+            if (form.id) {
+                //update inventory
+                return;
+            }
+
+            //create inventory
+            const { data } = await appAPI.post("ListaInventario", form);
+            dispatch(createNewInventory(data));
+            dispatch(openOrCloseModal());
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return {
 
         //states
         books,
         activeBook,
         listTypeBook,
+        listInventory,
+        activeInventory,
 
         //methods
         onSetBook,
@@ -111,6 +158,8 @@ export const useBookStore = () => {
         onDeleteBook,
         onGetBooks,
         onGetTypeBooks,
-        onGetBookById
+        onGetBookById,
+        onGetInventoryById,
+        onSetInventory
     }
 }
