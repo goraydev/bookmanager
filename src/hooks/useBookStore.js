@@ -4,11 +4,14 @@ import {
     createNewBook,
     createNewInventory,
     deleteBook,
+    deleteInventory,
     getBooks,
     getInventoryByIdBook,
     getTypeBooks,
     setActiveBook,
-    updateBook
+    setActiveInventory,
+    updateBook,
+    updateInventory
 } from "../store/book/bookSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 import appAPI from "../API/appAPI";
@@ -129,6 +132,10 @@ export const useBookStore = () => {
 
             if (form.id) {
                 //update inventory
+                //actualizar libro
+                await appAPI.put(`ListaInventario/${form.id}`, form);
+                dispatch(updateInventory({ ...form }));
+                dispatch(openOrCloseModal());
                 return;
             }
 
@@ -136,6 +143,23 @@ export const useBookStore = () => {
             const { data } = await appAPI.post("ListaInventario", form);
             dispatch(createNewInventory(data));
             dispatch(openOrCloseModal());
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const onSetActiveInventory = (inventory) => {
+        dispatch(setActiveInventory(inventory));
+        dispatch(openOrCloseModal());
+    }
+
+    const onDeleteInventory = async (payload) => {
+        try {
+
+
+            await appAPI.delete(`/ListaInventario/${payload.id}`);
+            dispatch(deleteInventory(payload.id));
 
         } catch (error) {
             console.error(error)
@@ -160,6 +184,8 @@ export const useBookStore = () => {
         onGetTypeBooks,
         onGetBookById,
         onGetInventoryById,
-        onSetInventory
+        onSetInventory,
+        onSetActiveInventory,
+        onDeleteInventory,
     }
 }

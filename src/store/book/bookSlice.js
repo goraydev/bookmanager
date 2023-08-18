@@ -58,6 +58,10 @@ export const bookSlice = createSlice({
             state.activeInventory = null;
         },
 
+        setActiveInventory: (state, { payload }) => {
+            state.activeInventory = payload;
+        },
+
         updateInventory: (state, { payload }) => {
             state.listInventory = state.listInventory.map(inv => {
                 if (inv.id === payload.id) {
@@ -70,7 +74,12 @@ export const bookSlice = createSlice({
 
         deleteInventory: (state, { payload }) => {
             state.listInventory = state.listInventory.filter(inv => inv.id !== payload);
-        }
+        },
+        clearAllInventory: (state) => {
+            //state.books = [];
+            state.activeInventory = null;
+        },
+
 
 
     }
@@ -86,6 +95,8 @@ export const {
     clearAllBook,
     getInventoryByIdBook,
     createNewInventory,
+    setActiveInventory,
     updateInventory,
-    deleteInventory
+    deleteInventory,
+    clearAllInventory
 } = bookSlice.actions

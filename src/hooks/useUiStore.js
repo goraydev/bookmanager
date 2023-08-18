@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { clearMessage, closeModal, openOrCloseModal, sendMessage } from "../store/ui/uiSlice";
-import { clearAllBook } from "../store/book/bookSlice";
+import { clearAllBook, clearAllInventory } from "../store/book/bookSlice";
 
 export const useUiStore = () => {
 
@@ -12,6 +12,7 @@ export const useUiStore = () => {
 
         dispatch(openOrCloseModal());
         dispatch(clearAllBook());
+        dispatch(clearAllInventory());
 
     }
 

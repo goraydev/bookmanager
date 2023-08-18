@@ -41,7 +41,14 @@ const style = {
 
 export const TableInventory = () => {
   const { onCloseModal, calledModal, modal, msg, onSendMessage } = useUiStore();
-  const { onGetInventoryById, listInventory, onSetInventory } = useBookStore();
+  const {
+    onGetInventoryById,
+    listInventory,
+    onSetInventory,
+    onSetActiveInventory,
+    activeInventory,
+    onDeleteInventory,
+  } = useBookStore();
   const { idLibro } = useParams();
 
   const {
@@ -54,15 +61,6 @@ export const TableInventory = () => {
     codigo: "",
     estadoId: 1,
   });
-
-  const handleDeleteRow = (row) => {
-    const { original } = row;
-    toast.success("Eliminado con éxito");
-  };
-
-  const handleEditAuthor = (row) => {
-    const { original } = row;
-  };
 
   const columns = useMemo(
     () => [
@@ -94,14 +92,44 @@ export const TableInventory = () => {
     calledModal();
   };
 
+  const handleDeleteRow = (row) => {
+    const { original } = row;
+    toast.success("Eliminado con éxito");
+    onDeleteInventory(original);
+  };
+
+  const handleEditAuthor = (row) => {
+    const { original } = row;
+    onSetActiveInventory(original);
+  };
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    if (codigo === "" || estadoId === "") {
-      onSendMessage("Faltan campos por llenar");
-      return;
+
+    if (activeInventory == null) {
+      formState.libroid = Number(idLibro);
+      if (codigo === "" || estadoId === "") {
+        onSendMessage("Faltan campos por llenar");
+        return;
+      }
+    } else {
+      formState.codigo = codigo !== "" ? codigo : activeInventory.codigo;
+      formState.estadoId =
+        estadoId !== "" ? estadoId : activeInventory.estadoId;
     }
 
     //notify
+    //notify
+
+    if (activeInventory !== null) {
+      toast.success("Inventario actualizado exitosamente", {
+        duration: 2000,
+      });
+    } else {
+      toast.success("Inventario creado exitosamente", {
+        duration: 2000,
+      });
+    }
 
     onSetInventory(formState);
     onResetForm();
@@ -110,6 +138,14 @@ export const TableInventory = () => {
   useEffect(() => {
     onGetInventoryById(idLibro);
   }, [idLibro]);
+
+  useEffect(() => {
+    if (activeInventory !== null) {
+      setFormState({ ...activeInventory });
+      return;
+    }
+    setFormState({ codigo: "", estadoId: 1 });
+  }, [activeInventory]);
 
   return (
     <div className="my-8">
@@ -233,7 +269,7 @@ export const TableInventory = () => {
                 }}
               />
               <Button variant="contained" size="large" type="submit">
-                Crear
+                {activeInventory !== null ? "Actualizar" : "Crear"}
               </Button>
             </form>
           </div>

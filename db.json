@@ -119,8 +119,8 @@
     {
       "id": 3,
       "libroid": 12,
-      "estadoid": 1,
-      "codigo": "cod-001",
+      "estadoId": "3",
+      "codigo": "cod-0012",
       "descripcion": "bueno",
       "valor": 1,
       "color": "verde"
@@ -128,7 +128,7 @@
     {
       "id": 4,
       "libroid": 13,
-      "estadoid": 1,
+      "estadoId": 1,
       "codigo": "cod-002",
       "descripcion": "regular",
       "valor": 1,
@@ -137,6 +137,7 @@
     {
       "codigo": "cod-003",
       "estadoId": 1,
+      "libroid": 12,
       "id": 5
     }
   ],
