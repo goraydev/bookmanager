@@ -6,6 +6,7 @@ import { Delete, Edit, FileDownload, Visibility } from "@mui/icons-material";
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import { useUiStore } from "../../hooks/useUiStore";
 import toast, { Toaster } from "react-hot-toast";
+import { ExportToCsv } from "export-to-csv";
 
 export const TableAuthors = () => {
   const { listAuthors, onSetActiveAuthor, onDeleteAuthor } = useAuthorBook();
@@ -37,6 +38,30 @@ export const TableAuthors = () => {
     ],
     []
   );
+
+  const csvOptions = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    useBom: true,
+    useKeysAsHeaders: false,
+    headers: ["AutorId", "Autor", "Tipo"],
+  };
+
+  const csvExporter = new ExportToCsv(csvOptions);
+
+  const handleExportData = () => {
+    const dataExport = listAuthors.map((author) => {
+      return {
+        autorid: author.autorId,
+        nombreAutor: author.nombreAutor,
+        tipoAutorId: author.tipoAutorId,
+      };
+    });
+
+    csvExporter.generateCsv(dataExport);
+  };
 
   return (
     <div className="my-4">
@@ -89,7 +114,7 @@ export const TableAuthors = () => {
                 <Button
                   color="success"
                   //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-
+                  onClick={() => handleExportData()}
                   startIcon={<FileDownload />}
                   variant="contained"
                 >

@@ -31,7 +31,7 @@ export const TableBooks = () => {
     const { original } = row;
     onSetActiveBook(original);
 
-    navigate(`/libros/${original.id}`);
+    navigate(`/libros/${original.libroid}`);
     onCloseModal();
   };
 
@@ -73,17 +73,31 @@ export const TableBooks = () => {
     showLabels: true,
     useBom: true,
     useKeysAsHeaders: false,
-    headers: columns.map((c) => c.header),
+    headers: [
+      "LibroId",
+      "Libro",
+      "Tipo",
+      " Edicion",
+      " Año",
+      " Editorial",
+      "Autor",
+    ],
   };
 
   const csvExporter = new ExportToCsv(csvOptions);
 
   const handleExportData = () => {
     const dataExport = books.map((book) => {
-      const autores = book.autor.map((autor) => autor.nombreAutor).join(", ");
+      const autores = book.autoresIds
+        .map((autor) => autor.nombreAutor)
+        .join(", ");
       return {
-        ...book,
-        tipoLibro: book.tipoLibro.tipoNombre,
+        libroid: book.libroid,
+        nombrelib: book.nombrelib,
+        tipolibro: book.tipolibro,
+        edicion: book.edicion,
+        año: book.año,
+        editorial: book.editorial,
         autor: autores,
       };
     });

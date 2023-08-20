@@ -8,8 +8,7 @@ import bookimage from "../../assets/book.svg";
 import { TableInventory } from "./TableInventory";
 
 export const Book = () => {
-  const { onGetBookById, activeBook } = useBookStore();
-  const { idLibro } = useParams();
+  const { activeBook } = useBookStore();
 
   const navigate = useNavigate();
 
@@ -18,10 +17,6 @@ export const Book = () => {
       replace: true,
     });
   };
-
-  useEffect(() => {
-    onGetBookById(idLibro);
-  }, [idLibro]);
 
   return (
     <Layout>
@@ -39,7 +34,7 @@ export const Book = () => {
           <header className="flex gap-4 mb-4">
             <div>
               <h3 className="text-4xl font-medium text-slate-700">
-                {activeBook?.nombreLib}
+                {activeBook?.nombrelib}
               </h3>
               <div className="flex gap-4 justify-between">
                 <p className="text-sm text-slate-400">
@@ -56,9 +51,7 @@ export const Book = () => {
 
           <p>
             Categoría:{" "}
-            <span className="text-slate-400">
-              {activeBook?.tipoLibro?.tipoNombre}
-            </span>
+            <span className="text-slate-400">{activeBook?.tipolibro}</span>
           </p>
           <p>
             Editorial:{" "}
@@ -68,8 +61,8 @@ export const Book = () => {
 
           <ul className="divide-y divide-slate-100 pb-2">
             {activeBook &&
-              activeBook.autor.map((a) => (
-                <li className="flex items-start gap-4" key={a.id}>
+              activeBook.autoresIds.map((a) => (
+                <li className="flex items-start gap-4" key={a.autorId}>
                   <div className="flex flex-col gap-0 min-h-[2rem] items-start justify-center">
                     <h4 className="text-base text-slate-400 ">
                       {a.nombreAutor}
@@ -85,7 +78,7 @@ export const Book = () => {
         </div>
       </div>
       <TableInventory />
-      
+
       {/*<!-- End Horizontal card--> */}
     </Layout>
   );

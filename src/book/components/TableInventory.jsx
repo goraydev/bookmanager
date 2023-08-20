@@ -26,6 +26,7 @@ import { useBookStore } from "../../hooks/useBookStore";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm";
+import { ExportToCsv } from "export-to-csv";
 
 const style = {
   position: "absolute",
@@ -53,13 +54,14 @@ export const TableInventory = () => {
 
   const {
     formState,
-    formState: { codigo, estadoId },
+    formState: { codigo, estadoId, autenticidadid },
     setFormState,
     onInputChange,
     onResetForm,
   } = useForm({
     codigo: "",
     estadoId: 1,
+    autenticidadid: 2,
   });
 
   const columns = useMemo(
@@ -72,6 +74,11 @@ export const TableInventory = () => {
       {
         accessorKey: "descripcion",
         header: "Descripción",
+        size: 150,
+      },
+      {
+        accessorKey: "autenticidad",
+        header: "Autenticidad",
         size: 150,
       },
       {
@@ -108,7 +115,7 @@ export const TableInventory = () => {
 
     if (activeInventory == null) {
       formState.libroid = Number(idLibro);
-      if (codigo === "" || estadoId === "") {
+      if (codigo === "" || estadoId === "" || autenticidadid === "") {
         onSendMessage("Faltan campos por llenar");
         return;
       }
@@ -116,6 +123,8 @@ export const TableInventory = () => {
       formState.codigo = codigo !== "" ? codigo : activeInventory.codigo;
       formState.estadoId =
         estadoId !== "" ? estadoId : activeInventory.estadoId;
+      formState.autenticidadid =
+        autenticidadid !== "" ? autenticidadid : activeInventory.autenticidadid;
     }
 
     //notify
@@ -137,15 +146,55 @@ export const TableInventory = () => {
 
   useEffect(() => {
     onGetInventoryById(idLibro);
-  }, [idLibro]);
+  }, []);
 
   useEffect(() => {
     if (activeInventory !== null) {
       setFormState({ ...activeInventory });
       return;
     }
-    setFormState({ codigo: "", estadoId: 1 });
+    setFormState({ codigo: "", estadoId: 1, autenticidadid: 2 });
   }, [activeInventory]);
+
+  //export csv
+
+  const csvOptions = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    useBom: true,
+    useKeysAsHeaders: false,
+    headers: [
+      "InventarioId",
+      "LibroId",
+      "EstadoId",
+      "Código",
+      "Descripción",
+      "Autenticidad",
+      "Valor",
+      "Color",
+    ],
+  };
+
+  const csvExporter = new ExportToCsv(csvOptions);
+
+  const handleExportData = () => {
+    const dataExport = listInventory.map((inv) => {
+      return {
+        inventarioid: inv.inventarioid,
+        libroid: inv.libroid,
+        estadoid: inv.estadoid,
+        codigo: inv.codigo,
+        descripcion: inv.descripcion,
+        autenticidad: inv.autenticidad,
+        valor: inv.valor,
+        color: inv.color,
+      };
+    });
+
+    csvExporter.generateCsv(dataExport);
+  };
 
   return (
     <div className="my-8">
@@ -207,7 +256,7 @@ export const TableInventory = () => {
                 <Button
                   color="success"
                   //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-
+                  onClick={() => handleExportData()}
                   startIcon={<FileDownload />}
                   variant="contained"
                 >
@@ -261,6 +310,21 @@ export const TableInventory = () => {
                 className="w-full"
                 name="estadoId"
                 value={estadoId}
+                onChange={onInputChange}
+                InputProps={{
+                  inputProps: {
+                    min: "1",
+                  },
+                }}
+              />
+              <TextField
+                type="number"
+                id="standard-basic-author"
+                label="Autenticidad"
+                variant="standard"
+                className="w-full"
+                name="autenticidadid"
+                value={autenticidadid}
                 onChange={onInputChange}
                 InputProps={{
                   inputProps: {

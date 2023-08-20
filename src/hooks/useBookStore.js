@@ -46,18 +46,7 @@ export const useBookStore = () => {
         }
     }
 
-    const onGetBookById = async (id) => {
-        try {
 
-            const { data } = await appAPI.get(`/ListaLibro/${id}`);
-
-            dispatch(setActiveBook({ ...data }));
-
-        } catch (error) {
-            console.error(error);
-        }
-
-    }
 
     const onSetBook = async (form) => {
 
@@ -120,7 +109,8 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get(`/ListaInventario`);
-            const result = data.filter(inv => inv.libroid === Number(id));
+
+            const result = data.resultado.filter(inv => inv.libroid === Number(id));
             dispatch(getInventoryByIdBook(result));
 
 
@@ -134,18 +124,19 @@ export const useBookStore = () => {
 
         try {
 
-            if (form.id) {
+
+            if (form.inventarioid) {
                 //update inventory
-                //actualizar libro
-                await appAPI.put(`ListaInventario/${form.id}`, form);
+                const { libroid, codigo, estadoId, autenticidadid } = form;
+                await appAPI.put(`updateInventario/${form.inventarioid}`, { libroid, codigo, estadoId, autenticidadid });
                 dispatch(updateInventory({ ...form }));
                 dispatch(openOrCloseModal());
                 return;
             }
 
             //create inventory
-            const { data } = await appAPI.post("ListaInventario", form);
-            dispatch(createNewInventory(data));
+            const { data } = await appAPI.post("CreateInventario", form);
+            dispatch(createNewInventory(data.resultado));
             dispatch(openOrCloseModal());
 
         } catch (error) {
@@ -154,7 +145,10 @@ export const useBookStore = () => {
     }
 
     const onSetActiveInventory = (inventory) => {
-        dispatch(setActiveInventory(inventory));
+        dispatch(setActiveInventory({
+            ...inventory,
+            estadoId: inventory.estadoid
+        }));
         dispatch(openOrCloseModal());
     }
 
@@ -162,8 +156,8 @@ export const useBookStore = () => {
         try {
 
 
-            await appAPI.delete(`/ListaInventario/${payload.id}`);
-            dispatch(deleteInventory(payload.id));
+            // await appAPI.delete(`/ListaInventario/${payload.id}`);
+            dispatch(deleteInventory(payload.inventarioid));
 
         } catch (error) {
             console.error(error)
@@ -186,7 +180,6 @@ export const useBookStore = () => {
         onDeleteBook,
         onGetBooks,
         onGetTypeBooks,
-        onGetBookById,
         onGetInventoryById,
         onSetInventory,
         onSetActiveInventory,
