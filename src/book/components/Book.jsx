@@ -8,7 +8,8 @@ import bookimage from "../../assets/book.svg";
 import { TableInventory } from "./TableInventory";
 
 export const Book = () => {
-  const { activeBook } = useBookStore();
+  const { activeBook, onGetBookById, onGetInventory } = useBookStore();
+  const { idLibro } = useParams();
 
   const navigate = useNavigate();
 
@@ -17,6 +18,14 @@ export const Book = () => {
       replace: true,
     });
   };
+
+  useEffect(() => {
+    onGetInventory();
+  }, []);
+
+  useEffect(() => {
+    onGetBookById(idLibro);
+  }, [idLibro]);
 
   return (
     <Layout>
@@ -61,7 +70,7 @@ export const Book = () => {
 
           <ul className="divide-y divide-slate-100 pb-2">
             {activeBook &&
-              activeBook.autoresIds.map((a) => (
+              activeBook.autoresIds?.map((a) => (
                 <li className="flex items-start gap-4" key={a.autorId}>
                   <div className="flex flex-col gap-0 min-h-[2rem] items-start justify-center">
                     <h4 className="text-base text-slate-400 ">

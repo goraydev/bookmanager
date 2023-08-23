@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import {
     clearAllBook,
+    clearAllInventory,
     createNewBook,
     createNewInventory,
     deleteBook,
     deleteInventory,
     getBooks,
-    getInventoryByIdBook,
+    getInventory,
+
     getTypeBooks,
     setActiveBook,
     setActiveInventory,
@@ -19,7 +21,7 @@ import appAPI from "../API/appAPI";
 export const useBookStore = () => {
 
 
-    const { activeBook, books, listTypeBook, listInventory, activeInventory } = useSelector(state => state.book);
+    const { activeBook, books, listTypeBook, listInventory, activeInventory, listInventoryByBook } = useSelector(state => state.book);
     const dispatch = useDispatch();
 
 
@@ -44,6 +46,19 @@ export const useBookStore = () => {
         } catch (error) {
             console.error(error)
         }
+    }
+
+    const onGetBookById = async (id) => {
+        try {
+
+            const { data } = await appAPI.get(`/ListaLibro`);
+            const result = data.resultado.find(book => book.libroid == id);
+            dispatch(setActiveBook({ ...result }));
+
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
 
@@ -104,15 +119,12 @@ export const useBookStore = () => {
     }
 
     //inventory
-    const onGetInventoryById = async (id) => {
+    const onGetInventory = async () => {
 
         try {
 
             const { data } = await appAPI.get(`/ListaInventario`);
-
-            const result = data.resultado.filter(inv => inv.libroid === Number(id));
-            dispatch(getInventoryByIdBook(result));
-
+            dispatch(getInventory(data.resultado));
 
         } catch (error) {
             console.error(error);
@@ -127,9 +139,10 @@ export const useBookStore = () => {
 
             if (form.inventarioid) {
                 //update inventory
-                const { libroid, codigo, estadoId, autenticidadid } = form;
+                const { libroid, codigo, estadoId, autenticidadid, inventarioid } = form;
                 await appAPI.put(`updateInventario/${form.inventarioid}`, { libroid, codigo, estadoId, autenticidadid });
-                dispatch(updateInventory({ ...form }));
+                dispatch(updateInventory({ libroid, codigo, estadoId, autenticidadid, inventarioid }));
+                onGetInventory();
                 dispatch(openOrCloseModal());
                 return;
             }
@@ -137,6 +150,7 @@ export const useBookStore = () => {
             //create inventory
             const { data } = await appAPI.post("CreateInventario", form);
             dispatch(createNewInventory(data.resultado));
+            onGetInventory();
             dispatch(openOrCloseModal());
 
         } catch (error) {
@@ -164,6 +178,10 @@ export const useBookStore = () => {
         }
     }
 
+    const onClearInventory = () => {
+        dispatch(clearAllInventory());
+    }
+
     return {
 
         //states
@@ -172,17 +190,20 @@ export const useBookStore = () => {
         listTypeBook,
         listInventory,
         activeInventory,
+        listInventoryByBook,
 
         //methods
         onSetBook,
         onSetActiveBook,
+        onGetBookById,
         onClearAllBook,
         onDeleteBook,
         onGetBooks,
         onGetTypeBooks,
-        onGetInventoryById,
+        onGetInventory,
         onSetInventory,
         onSetActiveInventory,
         onDeleteInventory,
+        onClearInventory
     }
 }

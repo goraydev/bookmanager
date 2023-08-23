@@ -11,8 +11,6 @@ export const useUiStore = () => {
     const calledModal = () => {
 
         dispatch(openOrCloseModal());
-        dispatch(clearAllBook());
-        dispatch(clearAllInventory());
 
     }
 

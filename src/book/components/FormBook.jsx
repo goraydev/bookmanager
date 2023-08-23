@@ -218,7 +218,7 @@ export const FormBook = () => {
                 <Alert severity="info" className="w-full mt-2">
                   <strong>Autor(es) actual(es): {""}</strong>
                   {activeBook.autoresIds
-                    .map((element) => element.nombreAutor)
+                    ?.map((element) => element.nombreAutor)
                     .join(", ")}
                 </Alert>
               )}

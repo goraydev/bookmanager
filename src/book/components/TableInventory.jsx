@@ -1,12 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAuthorBook } from "../../hooks/useAuthorBook";
 import {
   Alert,
   Box,
   Button,
   Divider,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Modal,
+  Select,
   TextField,
   Tooltip,
 } from "@mui/material";
@@ -41,9 +45,11 @@ const style = {
 };
 
 export const TableInventory = () => {
+  const [authenticityId, setAuthenticityId] = useState("");
+  const [stateBook, setStateBook] = useState("");
   const { onCloseModal, calledModal, modal, msg, onSendMessage } = useUiStore();
   const {
-    onGetInventoryById,
+    
     listInventory,
     onSetInventory,
     onSetActiveInventory,
@@ -110,21 +116,32 @@ export const TableInventory = () => {
     onSetActiveInventory(original);
   };
 
+  const handleChangeAuthenticity = (e) => {
+    setAuthenticityId(e.target.value);
+  };
+
+  const handleChangeStateBook = (e) => {
+    setStateBook(e.target.value);
+  };
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    if (activeInventory == null) {
+    if (activeInventory === null) {
       formState.libroid = Number(idLibro);
-      if (codigo === "" || estadoId === "" || autenticidadid === "") {
+      formState.autenticidadid = authenticityId;
+      formState.estadoId = stateBook;
+
+      if (codigo === "" || stateBook === "" || authenticityId === "") {
         onSendMessage("Faltan campos por llenar");
         return;
       }
     } else {
       formState.codigo = codigo !== "" ? codigo : activeInventory.codigo;
       formState.estadoId =
-        estadoId !== "" ? estadoId : activeInventory.estadoId;
+        stateBook !== "" ? stateBook : activeInventory.estadoId;
       formState.autenticidadid =
-        autenticidadid !== "" ? autenticidadid : activeInventory.autenticidadid;
+        authenticityId !== "" ? authenticityId : activeInventory.autenticidadid;
     }
 
     //notify
@@ -140,20 +157,19 @@ export const TableInventory = () => {
       });
     }
 
+    //console.log(formState);
     onSetInventory(formState);
+    setAuthenticityId("");
+    setStateBook("");
     onResetForm();
   };
-
-  useEffect(() => {
-    onGetInventoryById(idLibro);
-  }, []);
 
   useEffect(() => {
     if (activeInventory !== null) {
       setFormState({ ...activeInventory });
       return;
     }
-    setFormState({ codigo: "", estadoId: 1, autenticidadid: 2 });
+    setFormState({ codigo: "", estadoId: "", autenticidadid: "" });
   }, [activeInventory]);
 
   //export csv
@@ -302,36 +318,45 @@ export const TableInventory = () => {
                 value={codigo}
                 onChange={onInputChange}
               />
-              <TextField
-                type="number"
-                id="standard-basic-author"
-                label="Estado"
-                variant="standard"
-                className="w-full"
-                name="estadoId"
-                value={estadoId}
-                onChange={onInputChange}
-                InputProps={{
-                  inputProps: {
-                    min: "1",
-                  },
-                }}
-              />
-              <TextField
-                type="number"
-                id="standard-basic-author"
-                label="Autenticidad"
-                variant="standard"
-                className="w-full"
-                name="autenticidadid"
-                value={autenticidadid}
-                onChange={onInputChange}
-                InputProps={{
-                  inputProps: {
-                    min: "1",
-                  },
-                }}
-              />
+              <FormControl variant="standard" className="w-full">
+                <InputLabel id="demo-simple-select-standard-label">
+                  Estado del libro
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={stateBook}
+                  onChange={handleChangeStateBook}
+                  label="Age"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={2}>Muy Malo</MenuItem>
+                  <MenuItem value={3}>Malo</MenuItem>
+                  <MenuItem value={4}>Bueno</MenuItem>
+                  <MenuItem value={5}>Muy Bueno</MenuItem>
+                  <MenuItem value={6}>Excelente</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="standard" className="w-full">
+                <InputLabel id="demo-simple-select-standard-label">
+                  Autenticidad
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={authenticityId}
+                  onChange={handleChangeAuthenticity}
+                  label="Age"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={1}>Original</MenuItem>
+                  <MenuItem value={2}>Copia</MenuItem>
+                </Select>
+              </FormControl>
               <Button variant="contained" size="large" type="submit">
                 {activeInventory !== null ? "Actualizar" : "Crear"}
               </Button>
