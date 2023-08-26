@@ -26,12 +26,12 @@ export const TableAuthors = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "nombreAutor", //access nested data with dot notation
+        accessorKey: "nombreautor", //access nested data with dot notation
         header: "Autor",
         size: 150,
       },
       {
-        accessorKey: "tipoAutorId",
+        accessorKey: "tipoautor",
         header: "Tipo",
         size: 150,
       },

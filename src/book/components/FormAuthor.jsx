@@ -79,7 +79,7 @@ export const FormAuthor = () => {
       });
     }
 
-
+    //console.log(formState);
     onSetAuhor(formState);
     setTipoId("");
     onResetForm();
@@ -88,7 +88,10 @@ export const FormAuthor = () => {
   useEffect(() => {
     onGetTypeAuthors();
     if (activeAuthorBook !== null) {
-      setFormState({ ...activeAuthorBook });
+      setFormState({
+        ...activeAuthorBook,
+        nombreAutor: activeAuthorBook.nombreautor,
+      });
       return;
     }
     setFormState({
@@ -160,7 +163,7 @@ export const FormAuthor = () => {
                   {typeAuthors &&
                     typeAuthors.map((tipo) => (
                       <MenuItem value={tipo.tipoAutorId} key={tipo.tipoAutorId}>
-                        {tipo.tipoAutor1}
+                        {tipo.tipoautor}
                       </MenuItem>
                     ))}
                 </Select>

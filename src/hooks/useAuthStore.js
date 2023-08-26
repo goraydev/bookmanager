@@ -18,8 +18,8 @@ export const useAuthStore = () => {
 
 
             const { data } = await appAPI.post("/Login", form);
-            localStorage.setItem("token", data.resultado.token);
-            const { usu, usuarioid } = data.resultado.usuario;
+            localStorage.setItem("token", data.token);
+            const { usu, usuarioid } = data.usuario;
             dispatch(login({ usu: usu, uid: usuarioid }));
 
 

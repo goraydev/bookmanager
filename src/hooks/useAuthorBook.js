@@ -14,7 +14,7 @@ export const useAuthorBook = () => {
         try {
 
             const { data } = await appAPI.get("/ListaAutores");
-            dispatch(getAuthors(data.resultado));
+            dispatch(getAuthors(data));
 
         } catch (error) {
             console.error(error);
@@ -26,7 +26,7 @@ export const useAuthorBook = () => {
         try {
 
             const { data } = await appAPI.get("/ListaTipoAutores");
-            dispatch(getTypeAuthors(data.resultado));
+            dispatch(getTypeAuthors(data));
 
         } catch (error) {
             console.error(error)
@@ -37,10 +37,10 @@ export const useAuthorBook = () => {
     const onSetAuhor = async (formAuthor) => {
         try {
 
-            if (formAuthor.autorId) {
+            if (formAuthor.autorID) {
                 //actualizar author
-                await appAPI.put(`/updateAutor/${formAuthor.autorId}`, formAuthor);
-                dispatch(updateAuthor({ ...formAuthor }));
+                const { data } = await appAPI.put(`/updateAutor/${formAuthor.autorID}`, formAuthor);
+                dispatch(updateAuthor(data));
                 dispatch(openOrCloseModal());
                 return;
             }
@@ -48,9 +48,9 @@ export const useAuthorBook = () => {
 
             //crear nuevo author
             const { data } = await appAPI.post('/CreateAutor', formAuthor);
-            const { autorid, nombreautor, tipoautorid } = data.resultado;
+            const { autorID, nombreautor, tipoautor, tipoautorid } = data;
 
-            dispatch(createNewAuthor({ autorid, nombreAutor: nombreautor, tipoAutorId: tipoautorid }));
+            dispatch(createNewAuthor({ autorid: autorID, nombreautor, tipoAutorId: tipoautorid, tipoautor }));
             dispatch(openOrCloseModal());
 
 

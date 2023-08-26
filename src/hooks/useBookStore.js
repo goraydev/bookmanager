@@ -30,7 +30,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get("/ListaLibro");
-            dispatch(getBooks(data.resultado));
+            dispatch(getBooks(data));
 
         } catch (error) {
             console.error(error);
@@ -42,7 +42,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get("/ListaTipoLibro");
-            dispatch(getTypeBooks(data.resultado));
+            dispatch(getTypeBooks(data));
         } catch (error) {
             console.error(error)
         }
@@ -52,7 +52,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get(`/ListaLibro`);
-            const result = data.resultado.find(book => book.libroid == id);
+            const result = data.find(book => book.libroid == id);
             dispatch(setActiveBook({ ...result }));
 
         } catch (error) {
@@ -73,7 +73,7 @@ export const useBookStore = () => {
                 //actualizar libro
                 const { nombreLib, tipoId, edicion, año, editorial, autor } = form;
                 await appAPI.put(`UpdateLibro/${form.libroid}`, { nombreLib, tipoId, edicion, año, editorial, autor });
-                dispatch(updateBook({ ...form, nombrelib: nombreLib }));
+                dispatch(updateBook({ ...form }));
                 dispatch(openOrCloseModal());
                 return;
             }
@@ -82,7 +82,7 @@ export const useBookStore = () => {
 
             const { data } = await appAPI.post("/CreateLibro", form);
 
-            dispatch(createNewBook(data.resultado));
+            dispatch(createNewBook(data));
             dispatch(openOrCloseModal());
 
 
@@ -124,7 +124,7 @@ export const useBookStore = () => {
         try {
 
             const { data } = await appAPI.get(`/ListaInventario`);
-            dispatch(getInventory(data.resultado));
+            dispatch(getInventory(data));
 
         } catch (error) {
             console.error(error);
@@ -149,7 +149,7 @@ export const useBookStore = () => {
 
             //create inventory
             const { data } = await appAPI.post("CreateInventario", form);
-            dispatch(createNewInventory(data.resultado));
+            dispatch(createNewInventory(data));
             onGetInventory();
             dispatch(openOrCloseModal());
 
