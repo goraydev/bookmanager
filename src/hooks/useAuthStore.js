@@ -38,9 +38,9 @@ export const useAuthStore = () => {
 
         try {
 
-
+            const { data } = await appAPI.get("/authStatus");
             localStorage.getItem("token");
-            dispatch(login());
+            dispatch(login({ usu: data.userName, uid: data.userId }));
 
 
         } catch (error) {
