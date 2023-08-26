@@ -72,8 +72,8 @@ export const useBookStore = () => {
 
                 //actualizar libro
                 const { nombreLib, tipoId, edicion, año, editorial, autor } = form;
-                await appAPI.put(`UpdateLibro/${form.libroid}`, { nombreLib, tipoId, edicion, año, editorial, autor });
-                dispatch(updateBook({ ...form }));
+                const { data } = await appAPI.put(`UpdateLibro/${form.libroid}`, { nombreLib, tipoId, edicion, año, editorial, autor });
+                dispatch(updateBook(data));
                 dispatch(openOrCloseModal());
                 return;
             }

@@ -68,7 +68,7 @@ export const FormBook = () => {
 
     if (activeBook === null) {
       formState.tipoId = tipoId;
-      const selectedAuthorIds = personName.map((option) => option.autorId);
+      const selectedAuthorIds = personName.map((option) => option.autorID);
       formState.autor = selectedAuthorIds;
 
       const anyFieldEmpty = [nombreLib, edicion, año, editorial].some(
@@ -81,7 +81,7 @@ export const FormBook = () => {
       }
     } else {
       if (personName.length > 0) {
-        const selectedAuthorIds = personName.map((option) => option.autorId);
+        const selectedAuthorIds = personName.map((option) => option.autorID);
         formState.autor = selectedAuthorIds;
       } else {
         const selectedAuthorIds = activeBook.autoresIds.map(
@@ -226,7 +226,7 @@ export const FormBook = () => {
                 multiple
                 id="tags-standard-authorbook"
                 options={listAuthors}
-                getOptionLabel={(option) => option.nombreAutor}
+                getOptionLabel={(option) => option.nombreautor}
                 className="w-full"
                 value={personName}
                 onChange={handleChangeAuthor}
