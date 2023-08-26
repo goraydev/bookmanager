@@ -51,8 +51,6 @@ export const bookSlice = createSlice({
             state.listInventory = payload.filter(inv => inv.libroid === state.activeBook.libroid);
         },
 
-
-
         createNewInventory: (state, { payload }) => {
             state.listInventory.push(payload);
             state.activeInventory = null;

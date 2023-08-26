@@ -139,10 +139,9 @@ export const useBookStore = () => {
 
             if (form.inventarioid) {
                 //update inventory
-                const { libroid, codigo, estadoId, autenticidadid, inventarioid } = form;
-                await appAPI.put(`updateInventario/${form.inventarioid}`, { libroid, codigo, estadoId, autenticidadid });
-                dispatch(updateInventory({ libroid, codigo, estadoId, autenticidadid, inventarioid }));
-                onGetInventory();
+                const { libroId, codigo, estadoId, autenticidadid, inventarioid } = form;
+                const { data } = await appAPI.put(`updateInventario/${inventarioid}`, { libroId, codigo, estadoId, autenticidadid });
+                dispatch(updateInventory(data));
                 dispatch(openOrCloseModal());
                 return;
             }
@@ -150,7 +149,6 @@ export const useBookStore = () => {
             //create inventory
             const { data } = await appAPI.post("CreateInventario", form);
             dispatch(createNewInventory(data));
-            onGetInventory();
             dispatch(openOrCloseModal());
 
         } catch (error) {

@@ -49,7 +49,6 @@ export const TableInventory = () => {
   const [stateBook, setStateBook] = useState("");
   const { onCloseModal, calledModal, modal, msg, onSendMessage } = useUiStore();
   const {
-    
     listInventory,
     onSetInventory,
     onSetActiveInventory,
@@ -128,7 +127,7 @@ export const TableInventory = () => {
     e.preventDefault();
 
     if (activeInventory === null) {
-      formState.libroid = Number(idLibro);
+      formState.libroId = Number(idLibro);
       formState.autenticidadid = authenticityId;
       formState.estadoId = stateBook;
 
@@ -166,7 +165,7 @@ export const TableInventory = () => {
 
   useEffect(() => {
     if (activeInventory !== null) {
-      setFormState({ ...activeInventory });
+      setFormState({ ...activeInventory, libroId: Number(idLibro) });
       return;
     }
     setFormState({ codigo: "", estadoId: "", autenticidadid: "" });
@@ -332,11 +331,11 @@ export const TableInventory = () => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={2}>Muy Malo</MenuItem>
-                  <MenuItem value={3}>Malo</MenuItem>
-                  <MenuItem value={4}>Bueno</MenuItem>
-                  <MenuItem value={5}>Muy Bueno</MenuItem>
-                  <MenuItem value={6}>Excelente</MenuItem>
+                  <MenuItem value={1}>Muy Malo</MenuItem>
+                  <MenuItem value={2}>Malo</MenuItem>
+                  <MenuItem value={3}>Bueno</MenuItem>
+                  <MenuItem value={4}>Muy Bueno</MenuItem>
+                  <MenuItem value={5}>Excelente</MenuItem>
                 </Select>
               </FormControl>
               <FormControl variant="standard" className="w-full">
