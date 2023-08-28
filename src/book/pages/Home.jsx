@@ -3,7 +3,7 @@ import { Layout } from "../components/Layout";
 export const Home = () => {
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center min-h-screen w-full m-0 p-0 bg-school">
         <h1 className="text-4xl text-center font-semibold">
           Bienvenido al sistema (dev)
         </h1>

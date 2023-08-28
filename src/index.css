@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.containerPage {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
 .animation {
   width: 80%;
   margin: 0 auto;
@@ -15,4 +20,11 @@
 .mrt-table-head {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.bg-school {
+  background-image: url("./assets/fondo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

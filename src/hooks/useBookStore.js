@@ -168,7 +168,7 @@ export const useBookStore = () => {
         try {
 
 
-            // await appAPI.delete(`/ListaInventario/${payload.id}`);
+            await appAPI.delete(`/deleteLibros/${payload.inventarioid}`);
             dispatch(deleteInventory(payload.inventarioid));
 
         } catch (error) {
