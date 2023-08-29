@@ -93,11 +93,6 @@ export const TableInventory = () => {
         header: "Valor",
         size: 80,
       },
-      {
-        accessorKey: "color",
-        header: "Color",
-        size: 150,
-      },
     ],
     []
   );
