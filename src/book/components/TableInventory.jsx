@@ -48,6 +48,8 @@ export const TableInventory = () => {
   const [authenticityId, setAuthenticityId] = useState("");
   const [stateBook, setStateBook] = useState("");
   const { onCloseModal, calledModal, modal, msg, onSendMessage } = useUiStore();
+  const [rowSelection, setRowSelection] = useState({});
+
   const {
     listInventory,
     onSetInventory,
@@ -112,6 +114,7 @@ export const TableInventory = () => {
 
   const handleEditAuthor = (row) => {
     const { original } = row;
+    console.log(original);
     onSetActiveInventory(original);
   };
 
@@ -279,6 +282,14 @@ export const TableInventory = () => {
                 </Button>
               </Box>
             )}
+            muiTableBodyProps={{
+              sx: {
+                //stripe the rows, make odd rows a darker color
+                "& tr:nth-of-type(odd)": {
+                  backgroundColor: "#f5f5f5",
+                },
+              },
+            }}
             localization={MRT_Localization_ES}
           />
         </Box>
