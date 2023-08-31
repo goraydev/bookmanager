@@ -18,7 +18,7 @@ export const Home = () => {
           Atusparia - Vicos
         </h1>
         <div className="cards containerPage grid md:grid-cols-3 gap-4">
-          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl shadow-xl text-white">
+          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl text-white">
             {/*  <!-- Icon --> */}
             <figure className="p-6 pb-0">
               <svg
@@ -45,7 +45,7 @@ export const Home = () => {
               </h3>
             </div>
           </div>
-          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl shadow-xl text-white">
+          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl text-white">
             {/*  <!-- Icon --> */}
             <figure className="p-6 pb-0">
               <svg
