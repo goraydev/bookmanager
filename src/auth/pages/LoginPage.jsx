@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
   return (
     <main className="bg-school h-screen flex justify-center items-center">
-      <section className="containerPage shadow-md backdrop-blur-md p-4 rounded-xl flex flex-col md:flex-row items-center">
+      <section className="containerPage shadow-md backdrop-blur-2xl p-4 rounded-xl flex flex-col md:flex-row items-center">
         <div>
           <img src={escudo} className="w-2/3 mx-auto" alt="escudo colegio" />
         </div>

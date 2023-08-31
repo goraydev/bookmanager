@@ -13,12 +13,12 @@ export const Home = () => {
   return (
     <Layout>
       <div className="flex flex-col h-full md:h-5/6 w-full m-0 p-0 bg-school">
-        <h1 className="text-4xl text-center font-semibold text-slate-100 backdrop-blur-md p-4 mx-auto my-2 rounded-xl">
+        <h1 className="text-4xl text-center font-semibold text-slate-100 backdrop-blur-2xl p-4 mx-auto my-2 rounded-xl">
           Bienvenido al sistema - Biblioteca Estudiantil de Pedro Pablo
           Atusparia - Vicos
         </h1>
         <div className="cards containerPage grid md:grid-cols-3 gap-4">
-          <div className="overflow-hidden text-center backdrop-blur-md  rounded-xl shadow-xl text-white">
+          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl shadow-xl text-white">
             {/*  <!-- Icon --> */}
             <figure className="p-6 pb-0">
               <svg
@@ -45,7 +45,7 @@ export const Home = () => {
               </h3>
             </div>
           </div>
-          <div className="overflow-hidden text-center backdrop-blur-md  rounded-xl shadow-xl text-white">
+          <div className="overflow-hidden text-center backdrop-blur-2xl  rounded-xl shadow-xl text-white">
             {/*  <!-- Icon --> */}
             <figure className="p-6 pb-0">
               <svg
