@@ -19,14 +19,27 @@ export const useAuthStore = () => {
 
             const { data } = await appAPI.post("/Login", form);
             localStorage.setItem("token", data.token);
-            const { usu, usuarioid } = data.usuario;
-            dispatch(login({ usu: usu, uid: usuarioid }));
+            const { usu, usuarioid, tipousuarioid } = data.usuario;
+            dispatch(login({ usu: usu, uid: usuarioid, tipousuarioid }));
 
 
         } catch (error) {
 
             dispatch(logout());
             onSendMessage("Usuario no existe");
+            console.error(error)
+        }
+    }
+
+    const onCreateUser = async (form) => {
+
+        try {
+
+            
+            await appAPI.post("/Register", form);
+
+
+        } catch (error) {
             console.error(error)
         }
     }
@@ -40,7 +53,7 @@ export const useAuthStore = () => {
 
             const { data } = await appAPI.get("/authStatus");
             localStorage.getItem("token");
-            dispatch(login({ usu: data.userName, uid: data.userId }));
+            dispatch(login({ usu: data.userName, uid: data.userId, tipousuarioid: Number(data.userType) }));
 
 
         } catch (error) {
@@ -65,7 +78,7 @@ export const useAuthStore = () => {
         //methods
         onLogin,
         onLogout,
+        onCreateUser,
         checkSession,
-
     }
 }

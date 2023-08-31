@@ -6,4 +6,5 @@ export * from "./TableBooks";
 export * from "./Book";
 export * from "./TableAuthors";
 export * from "./Perfil";
-export * from "./TableInventory"
+export * from "./TableInventory";
+export * from "./FormUser";

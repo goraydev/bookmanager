@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { Book, Layout } from "../book/components";
-import { Home, Books, Authors } from "../book/pages";
+import { Home, Books, Authors, Users } from "../book/pages";
 import { LoginPage } from "../auth/pages";
 import { useEffect } from "react";
 
@@ -30,6 +30,7 @@ export const AppRouter = () => {
           <Route path="libros" element={<Books />} />
           <Route path="libros/:idLibro" element={<Book />} />
           <Route path="autores" element={<Authors />} />
+          <Route path="usuarios" element={<Users />} />
           <Route path="/*" element={<Navigate to={"/"} />} />
         </>
       )}

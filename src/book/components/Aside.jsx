@@ -8,10 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HomeIcon from "@mui/icons-material/Home";
-import PersonIcon from '@mui/icons-material/Person';
+import GroupIcon from "@mui/icons-material/Group";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export const Aside = () => {
   return (
@@ -29,11 +30,23 @@ export const Aside = () => {
         </ListItem>
       </Link>
       <Divider />
+      <Link to={"/usuarios"}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonAddIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>Usuarios</Typography>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </Link>
       <Link to={"/libros"}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <LibraryBooksIcon />
+              <AutoStoriesIcon />
             </ListItemIcon>
             <ListItemText>
               <Typography>Libros</Typography>
@@ -45,7 +58,7 @@ export const Aside = () => {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <PersonIcon />
+              <GroupIcon />
             </ListItemIcon>
             <ListItemText>
               <Typography>Autores</Typography>
@@ -54,6 +67,5 @@ export const Aside = () => {
         </ListItem>
       </Link>
     </List>
-    
   );
 };
