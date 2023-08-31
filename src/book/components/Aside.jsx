@@ -13,8 +13,13 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { useAuthStore } from "../../hooks";
 
 export const Aside = () => {
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
+
   return (
     <List>
       <Link to={"/"}>
@@ -30,18 +35,23 @@ export const Aside = () => {
         </ListItem>
       </Link>
       <Divider />
-      <Link to={"/usuarios"}>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonAddIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography>Usuarios</Typography>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </Link>
+      {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+        <>
+          <Link to={"/usuarios"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PersonAddIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography>Usuarios</Typography>
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </>
+      ) : null}
+
       <Link to={"/libros"}>
         <ListItem disablePadding>
           <ListItemButton>

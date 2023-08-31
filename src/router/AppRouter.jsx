@@ -6,7 +6,12 @@ import { LoginPage } from "../auth/pages";
 import { useEffect } from "react";
 
 export const AppRouter = () => {
-  const { status, errorMessage, checkSession } = useAuthStore();
+  const {
+    status,
+    errorMessage,
+    checkSession,
+    user: { tipousuarioid },
+  } = useAuthStore();
 
   useEffect(() => {
     checkSession();
@@ -26,11 +31,14 @@ export const AppRouter = () => {
       ) : (
         <>
           <Route path="/" element={<Layout />} />
-          <Route path="/" index element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="libros" element={<Books />} />
           <Route path="libros/:idLibro" element={<Book />} />
           <Route path="autores" element={<Authors />} />
-          <Route path="usuarios" element={<Users />} />
+          {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+            <Route path="usuarios" element={<Users />} />
+          ) : null}
+
           <Route path="/*" element={<Navigate to={"/"} />} />
         </>
       )}

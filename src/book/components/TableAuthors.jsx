@@ -7,10 +7,14 @@ import { MRT_Localization_ES } from "material-react-table/locales/es";
 import { useUiStore } from "../../hooks/useUiStore";
 import toast, { Toaster } from "react-hot-toast";
 import { ExportToCsv } from "export-to-csv";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 export const TableAuthors = () => {
   const { listAuthors, onSetActiveAuthor, onDeleteAuthor } = useAuthorBook();
   const { onCloseModal } = useUiStore();
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
 
   const handleDeleteRow = (row) => {
     const { original } = row;
@@ -87,19 +91,25 @@ export const TableAuthors = () => {
             enableEditing
             renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Tooltip arrow placement="top" title="Edit">
-                  <IconButton onClick={() => handleEditAuthor(row)}>
-                    <Edit />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip arrow placement="top" title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDeleteRow(row)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </Tooltip>
+                {tipousuarioid === 1 ||
+                tipousuarioid === 3 ||
+                tipousuarioid === 5 ? (
+                  <>
+                    <Tooltip arrow placement="top" title="Edit">
+                      <IconButton onClick={() => handleEditAuthor(row)}>
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip arrow placement="top" title="Delete">
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDeleteRow(row)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                ) : null}
               </Box>
             )}
             renderTopToolbarCustomActions={({ table }) => (

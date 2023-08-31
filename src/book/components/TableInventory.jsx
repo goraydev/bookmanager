@@ -31,6 +31,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm";
 import { ExportToCsv } from "export-to-csv";
+import { useAuthStore } from "../../hooks";
 
 const style = {
   position: "absolute",
@@ -46,6 +47,9 @@ const style = {
 
 export const TableInventory = () => {
   const [authenticityId, setAuthenticityId] = useState("");
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
   const [stateBook, setStateBook] = useState("");
   const { onCloseModal, calledModal, modal, msg, onSendMessage } = useUiStore();
   const [rowSelection, setRowSelection] = useState({});
@@ -231,23 +235,31 @@ export const TableInventory = () => {
             editingMode="modal" //default
             enableColumnOrdering
             enableEditing
-            renderRowActions={({ row, table }) => (
+            renderRowActions={({ row, table }) => {
+              // Reemplaza "tuTipoDeUsuario" con el valor real
+
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Tooltip arrow placement="top" title="Edit">
-                  <IconButton onClick={() => handleEditAuthor(row)}>
-                    <Edit />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip arrow placement="top" title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDeleteRow(row)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            )}
+                {tipousuarioid === 1 ||
+                tipousuarioid === 3 ||
+                tipousuarioid === 5 ? (
+                  <>
+                    <Tooltip arrow placement="top" title="Edit">
+                      <IconButton onClick={() => handleEditAuthor(row)}>
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip arrow placement="top" title="Delete">
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDeleteRow(row)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                ) : null}
+              </Box>;
+            }}
             renderTopToolbarCustomActions={({ table }) => (
               <Box
                 sx={{
@@ -257,15 +269,22 @@ export const TableInventory = () => {
                   flexWrap: "wrap",
                 }}
               >
-                <Button
-                  onClick={calledModal}
-                  variant="contained"
-                  size="large"
-                  className="flex gap-2"
-                >
-                  Nuevo inventario
-                  <AddCircleOutline />
-                </Button>
+                {tipousuarioid === 1 ||
+                tipousuarioid === 3 ||
+                tipousuarioid === 5 ? (
+                  <>
+                    <Button
+                      onClick={calledModal}
+                      variant="contained"
+                      size="large"
+                      className="flex gap-2"
+                    >
+                      Nuevo inventario
+                      <AddCircleOutline />
+                    </Button>
+                  </>
+                ) : null}
+
                 <Button
                   color="success"
                   //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)

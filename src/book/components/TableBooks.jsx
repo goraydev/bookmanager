@@ -5,14 +5,16 @@ import { MaterialReactTable } from "material-react-table";
 import { MRT_Localization_ES } from "material-react-table/locales/es";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { Delete, Edit, FileDownload, Visibility } from "@mui/icons-material";
-import { useBookStore } from "../../hooks/useBookStore";
 import { ExportToCsv } from "export-to-csv";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
-import { useUiStore } from "../../hooks/useUiStore";
+import { useBookStore, useUiStore, useAuthStore } from "../../hooks";
 
 export const TableBooks = () => {
   const { books, onSetActiveBook, onDeleteBook } = useBookStore();
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
   const { onCloseModal } = useUiStore();
   const navigate = useNavigate();
 
@@ -129,19 +131,26 @@ export const TableBooks = () => {
             enableEditing
             renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Tooltip arrow placement="top" title="Edit">
-                  <IconButton onClick={() => handleButtonEdit(row)}>
-                    <Edit />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip arrow placement="top" title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDeleteRow(row)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </Tooltip>
+                {tipousuarioid === 1 ||
+                tipousuarioid === 3 ||
+                tipousuarioid === 5 ? (
+                  <>
+                    <Tooltip arrow placement="top" title="Edit">
+                      <IconButton onClick={() => handleButtonEdit(row)}>
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip arrow placement="top" title="Delete">
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDeleteRow(row)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                ) : null}
+
                 <Tooltip arrow placement="top" title="Ver detalles">
                   <IconButton
                     color="info"

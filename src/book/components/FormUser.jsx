@@ -46,6 +46,7 @@ export const FormUser = () => {
 
     if ([usu, pwsd, tipousuarioid].includes("")) {
       onSendMessage("Complete todos los campos");
+      return;
     }
 
     onCreateUser(formState);

@@ -14,7 +14,7 @@ import { useUiStore } from "../../hooks/useUiStore";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useAuthorBook } from "../../hooks/useAuthorBook";
-import { useForm } from "../../hooks";
+import { useAuthStore, useForm } from "../../hooks";
 import toast, { Toaster } from "react-hot-toast";
 
 const style = {
@@ -33,6 +33,9 @@ export const FormAuthor = () => {
   const { modal, calledModal, msg, onSendMessage } = useUiStore();
   const { typeAuthors, activeAuthorBook, onGetTypeAuthors, onSetAuhor } =
     useAuthorBook();
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
   const [tipoId, setTipoId] = useState("");
 
   let {
@@ -102,15 +105,20 @@ export const FormAuthor = () => {
 
   return (
     <>
-      <Button
-        onClick={calledModal}
-        variant="contained"
-        size="large"
-        className="flex gap-2"
-      >
-        Nuevo autor
-        <AddCircleOutlineIcon />
-      </Button>
+      {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+        <>
+          <Button
+            onClick={calledModal}
+            variant="contained"
+            size="large"
+            className="flex gap-2"
+          >
+            Nuevo autor
+            <AddCircleOutlineIcon />
+          </Button>
+        </>
+      ) : null}
+
       <Toaster />
       <Modal
         open={modal}

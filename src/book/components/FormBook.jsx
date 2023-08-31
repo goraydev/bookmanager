@@ -11,7 +11,13 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useUiStore, useForm, useBookStore, useAuthorBook } from "../../hooks";
+import {
+  useUiStore,
+  useForm,
+  useBookStore,
+  useAuthorBook,
+  useAuthStore,
+} from "../../hooks";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import toast, { Toaster } from "react-hot-toast";
@@ -32,6 +38,9 @@ const style = {
 export const FormBook = () => {
   const { modal, calledModal, msg, onSendMessage } = useUiStore();
   const { listAuthors, onGetListAuthors } = useAuthorBook();
+  const {
+    user: { tipousuarioid },
+  } = useAuthStore();
   const { activeBook, onSetBook, onGetTypeBooks, listTypeBook } =
     useBookStore();
   const [tipoId, setTipoId] = useState("");
@@ -132,15 +141,20 @@ export const FormBook = () => {
 
   return (
     <>
-      <Button
-        onClick={calledModal}
-        variant="contained"
-        size="large"
-        className="flex gap-2"
-      >
-        Nuevo libro
-        <AddCircleOutlineIcon />
-      </Button>
+      {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+        <>
+          <Button
+            onClick={calledModal}
+            variant="contained"
+            size="large"
+            className="flex gap-2"
+          >
+            Nuevo libro
+            <AddCircleOutlineIcon />
+          </Button>
+        </>
+      ) : null}
+
       <Toaster />
       <Modal
         open={modal}
