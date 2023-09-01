@@ -35,7 +35,7 @@ export const useAuthStore = () => {
 
         try {
 
-            
+
             await appAPI.post("/Register", form);
 
 
@@ -52,6 +52,11 @@ export const useAuthStore = () => {
         try {
 
             const { data } = await appAPI.get("/authStatus");
+            if (!data.ok) {
+                localStorage.removeItem("token");
+                dispatch(logout());
+                return;
+            }
             localStorage.getItem("token");
             dispatch(login({ usu: data.userName, uid: data.userId, tipousuarioid: Number(data.userType) }));
 
