@@ -35,7 +35,7 @@ export const Aside = () => {
         </ListItem>
       </Link>
       <Divider />
-      {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+      {tipousuarioid === 1 || tipousuarioid === 5 ? (
         <>
           <Link to={"/usuarios"}>
             <ListItem disablePadding>

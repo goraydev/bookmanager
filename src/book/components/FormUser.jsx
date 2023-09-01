@@ -147,6 +147,13 @@ export const FormUser = () => {
               name="tipousuarioid"
               onChange={onInputChange}
             />
+             <FormControlLabel
+              value={5}
+              control={<Radio />}
+              label="Desarrollador"
+              name="tipousuarioid"
+              onChange={onInputChange}
+            />
           </RadioGroup>
         </FormControl>
 

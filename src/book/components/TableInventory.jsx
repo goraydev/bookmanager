@@ -13,6 +13,7 @@ import {
   Select,
   TextField,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
 import {
@@ -235,9 +236,7 @@ export const TableInventory = () => {
             editingMode="modal" //default
             enableColumnOrdering
             enableEditing
-            renderRowActions={({ row, table }) => {
-              // Reemplaza "tuTipoDeUsuario" con el valor real
-
+            renderRowActions={({ row, table }) => (
               <Box sx={{ display: "flex", gap: "1rem" }}>
                 {tipousuarioid === 1 ||
                 tipousuarioid === 3 ||
@@ -258,8 +257,8 @@ export const TableInventory = () => {
                     </Tooltip>
                   </>
                 ) : null}
-              </Box>;
-            }}
+              </Box>
+            )}
             renderTopToolbarCustomActions={({ table }) => (
               <Box
                 sx={{

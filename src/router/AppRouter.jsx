@@ -35,7 +35,7 @@ export const AppRouter = () => {
           <Route path="libros" element={<Books />} />
           <Route path="libros/:idLibro" element={<Book />} />
           <Route path="autores" element={<Authors />} />
-          {tipousuarioid === 1 || tipousuarioid === 3 || tipousuarioid === 5 ? (
+          {tipousuarioid === 1 || tipousuarioid === 5 ? (
             <Route path="usuarios" element={<Users />} />
           ) : null}
 
