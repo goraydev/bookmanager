@@ -6,6 +6,7 @@ import {
     createNewInventory,
     deleteBook,
     deleteInventory,
+    getAllInventory,
     getBooks,
     getInventory,
 
@@ -118,7 +119,18 @@ export const useBookStore = () => {
         dispatch(clearAllBook());
     }
 
-    //inventory
+    const onGetAllInventory = async () => {
+        try {
+
+            const { data } = await appAPI.get('/ListaInventario');
+            dispatch(getAllInventory(data));
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     const onGetInventory = async () => {
 
         try {
@@ -198,6 +210,7 @@ export const useBookStore = () => {
         onDeleteBook,
         onGetBooks,
         onGetTypeBooks,
+        onGetAllInventory,
         onGetInventory,
         onSetInventory,
         onSetActiveInventory,

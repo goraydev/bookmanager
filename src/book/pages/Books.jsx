@@ -5,11 +5,12 @@ import { useBookStore } from "../../hooks";
 import { useEffect } from "react";
 
 export const Books = () => {
-  const { onGetBooks, onClearInventory } = useBookStore();
+  const { onGetBooks, onClearInventory, onGetAllInventory } = useBookStore();
 
   useEffect(() => {
     onGetBooks();
     onClearInventory();
+    onGetAllInventory();
   }, []);
 
   return (

@@ -60,6 +60,7 @@ export const TableInventory = () => {
     onSetInventory,
     onSetActiveInventory,
     activeInventory,
+    activeBook,
     onDeleteInventory,
   } = useBookStore();
   const { idLibro } = useParams();
@@ -181,6 +182,8 @@ export const TableInventory = () => {
     quoteStrings: '"',
     decimalSeparator: ".",
     showLabels: true,
+    filename: `Inventario del libro ${activeBook.nombrelib}`,
+    title: `Inventario del libro ${activeBook.nombrelib}`,
     useBom: true,
     useKeysAsHeaders: false,
     headers: [

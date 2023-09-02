@@ -49,6 +49,8 @@ export const TableAuthors = () => {
     decimalSeparator: ".",
     showLabels: true,
     useBom: true,
+    filename: "Lista general de autores",
+    title: "Lista de autores",
     useKeysAsHeaders: false,
     headers: ["AutorId", "Autor", "Tipo"],
   };
