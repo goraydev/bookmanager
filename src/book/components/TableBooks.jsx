@@ -11,7 +11,8 @@ import { useNavigate } from "react-router";
 import { useBookStore, useUiStore, useAuthStore } from "../../hooks";
 
 export const TableBooks = () => {
-  const { books, onSetActiveBook, onDeleteBook } = useBookStore();
+  const { books, listInventory, onSetActiveBook, onDeleteBook } =
+    useBookStore();
   const {
     user: { tipousuarioid },
   } = useAuthStore();
@@ -73,6 +74,8 @@ export const TableBooks = () => {
     quoteStrings: '"',
     decimalSeparator: ".",
     showLabels: true,
+    filename: "Lista general de libros",
+    title: "Lista de libros",
     useBom: true,
     useKeysAsHeaders: false,
     headers: [
@@ -86,7 +89,30 @@ export const TableBooks = () => {
     ],
   };
 
+  const csvOptions2 = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    useBom: true,
+    filename: "Inventario general de libros",
+    title: "Inventario de libros",
+    useKeysAsHeaders: false,
+    headers: [
+      "Código",
+      "Nombre libro",
+      "Autores",
+      "Edición",
+      "Editorial",
+      "Año",
+      "Descripión",
+      "Autenticidad",
+      "Valor",
+    ],
+  };
+
   const csvExporter = new ExportToCsv(csvOptions);
+  const csvExporter2 = new ExportToCsv(csvOptions2);
 
   const handleExportData = () => {
     const dataExport = books.map((book) => {
@@ -105,6 +131,23 @@ export const TableBooks = () => {
     });
 
     csvExporter.generateCsv(dataExport);
+  };
+
+  const handleExportInventory = () => {
+    const dataExport = listInventory.map((inventory) => {
+      return {
+        codigo: inventory.codigo,
+        nombrelib: inventory.autores,
+        autores: inventory.autores,
+        edicion: inventory.edicion,
+        editorial: inventory.editorial,
+        año: inventory.año,
+        descripcion: inventory.descripcion,
+        autenticidad: inventory.autenticidad,
+        valor: inventory.valor,
+      };
+    });
+    csvExporter2.generateCsv(dataExport);
   };
 
   return (
@@ -177,7 +220,16 @@ export const TableBooks = () => {
                   startIcon={<FileDownload />}
                   variant="contained"
                 >
-                  Exportar Data
+                  Exportar Libros
+                </Button>
+                <Button
+                  color="info"
+                  //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+                  onClick={() => handleExportInventory()}
+                  startIcon={<FileDownload />}
+                  variant="contained"
+                >
+                  Exportar Inventario
                 </Button>
               </Box>
             )}
