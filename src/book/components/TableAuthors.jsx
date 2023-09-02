@@ -60,9 +60,9 @@ export const TableAuthors = () => {
   const handleExportData = () => {
     const dataExport = listAuthors.map((author) => {
       return {
-        autorid: author.autorId,
-        nombreAutor: author.nombreAutor,
-        tipoAutorId: author.tipoAutorId,
+        autorid: author.autorID,
+        nombreAutor: author.nombreautor,
+        tipoAutor: author.tipoautor,
       };
     });
 
