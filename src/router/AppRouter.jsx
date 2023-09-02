@@ -4,6 +4,7 @@ import { Book, Layout } from "../book/components";
 import { Home, Books, Authors, Users } from "../book/pages";
 import { LoginPage } from "../auth/pages";
 import { useEffect } from "react";
+import { CheckingAuth } from "../ui/components/CheckingAuth";
 
 export const AppRouter = () => {
   const {
@@ -18,7 +19,7 @@ export const AppRouter = () => {
   }, []);
 
   if (status === "checking") {
-    return <div>Cargando...</div>;
+    return <CheckingAuth />;
   }
 
   return (

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import provisional from "../../assets/provisional.svg";
-import escudo from "../../assets/escudovicos.png";
+import escudo from "../../assets/escudovicos.webp";
 import { Alert, Button } from "@mui/material";
 import { useForm } from "../../hooks/useForm";
 import { useAuthStore } from "../../hooks/useAuthStore";
