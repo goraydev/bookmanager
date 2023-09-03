@@ -137,7 +137,7 @@ export const TableBooks = () => {
     const dataExport = listInventory.map((inventory) => {
       return {
         codigo: inventory.codigo,
-        nombrelib: inventory.autores,
+        nombrelib: inventory.nombrelib,
         autores: inventory.autores,
         edicion: inventory.edicion,
         editorial: inventory.editorial,

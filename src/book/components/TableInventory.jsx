@@ -57,6 +57,7 @@ export const TableInventory = () => {
 
   const {
     listInventory,
+    listInventoryByBook,
     onSetInventory,
     onSetActiveInventory,
     activeInventory,
@@ -187,30 +188,32 @@ export const TableInventory = () => {
     useBom: true,
     useKeysAsHeaders: false,
     headers: [
-      "InventarioId",
-      "LibroId",
-      "EstadoId",
       "Código",
-      "Descripción",
+      "Nombre libro",
+      "Autores",
+      "Edición",
+      "Editorial",
+      "Año",
+      "Descripión",
       "Autenticidad",
       "Valor",
-      "Color",
     ],
   };
 
   const csvExporter = new ExportToCsv(csvOptions);
 
   const handleExportData = () => {
-    const dataExport = listInventory.map((inv) => {
+    const dataExport = listInventoryByBook.map((inventory) => {
       return {
-        inventarioid: inv.inventarioid,
-        libroid: inv.libroid,
-        estadoid: inv.estadoid,
-        codigo: inv.codigo,
-        descripcion: inv.descripcion,
-        autenticidad: inv.autenticidad,
-        valor: inv.valor,
-        color: inv.color,
+        codigo: inventory.codigo,
+        nombrelib: inventory.nombrelib,
+        autores: inventory.autores,
+        edicion: inventory.edicion,
+        editorial: inventory.editorial,
+        año: inventory.año,
+        descripcion: inventory.descripcion,
+        autenticidad: inventory.autenticidad,
+        valor: inventory.valor,
       };
     });
 

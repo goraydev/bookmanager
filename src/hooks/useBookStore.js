@@ -10,6 +10,8 @@ import {
     getBooks,
     getInventory,
 
+    getInventoryByIdBook,
+
     getTypeBooks,
     setActiveBook,
     setActiveInventory,
@@ -122,7 +124,7 @@ export const useBookStore = () => {
     const onGetAllInventory = async () => {
         try {
 
-            const { data } = await appAPI.get('/ListaInventario');
+            const { data } = await appAPI.get('/ReporteInventarioGeneral');
             dispatch(getAllInventory(data));
 
         } catch (error) {
@@ -142,6 +144,17 @@ export const useBookStore = () => {
             console.error(error);
         }
 
+    }
+
+    const onGetInventoryByIdBook = async (idLibro) => {
+        try {
+
+            const { data } = await appAPI.get(`/ReporteInventarioEspecifico/${idLibro}`);
+            dispatch(getInventoryByIdBook(data));
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const onSetInventory = async (form) => {
@@ -212,6 +225,7 @@ export const useBookStore = () => {
         onGetTypeBooks,
         onGetAllInventory,
         onGetInventory,
+        onGetInventoryByIdBook,
         onSetInventory,
         onSetActiveInventory,
         onDeleteInventory,

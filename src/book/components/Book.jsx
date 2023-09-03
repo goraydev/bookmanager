@@ -8,7 +8,13 @@ import bookimage from "../../assets/book.svg";
 import { TableInventory } from "./TableInventory";
 
 export const Book = () => {
-  const { activeBook, onGetBookById, onGetInventory } = useBookStore();
+  const {
+    activeBook,
+    onGetBookById,
+    onGetInventory,
+    onGetInventoryByIdBook,
+    listInventory,
+  } = useBookStore();
   const { idLibro } = useParams();
 
   const navigate = useNavigate();
@@ -22,6 +28,10 @@ export const Book = () => {
   useEffect(() => {
     onGetInventory();
   }, []);
+
+  useEffect(() => {
+    onGetInventoryByIdBook(idLibro);
+  }, [listInventory, idLibro]);
 
   useEffect(() => {
     onGetBookById(idLibro);

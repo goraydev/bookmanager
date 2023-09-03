@@ -5,6 +5,7 @@ const initialState = {
     books: [],
     listTypeBook: [],
     listInventory: [],
+    listInventoryByBook: [],
     activeInventory: null
 }
 
@@ -54,6 +55,10 @@ export const bookSlice = createSlice({
             state.listInventory = payload.filter(inv => inv.libroid === state.activeBook.libroid);
         },
 
+        getInventoryByIdBook: (state, { payload }) => {
+            state.listInventoryByBook = payload;
+        },
+
         createNewInventory: (state, { payload }) => {
             state.listInventory.push(payload);
             state.activeInventory = null;
@@ -98,6 +103,7 @@ export const {
     clearAllBook,
     getAllInventory,
     getInventory,
+    getInventoryByIdBook,
     createNewInventory,
     setActiveInventory,
     updateInventory,
