@@ -38,6 +38,9 @@ export const authorSlice = createSlice({
         deleteAuthor: (state, { payload }) => {
             state.listAuthors = state.listAuthors.filter(author => author.autorID !== payload);
         },
+        cleanActiveAutor: (state, { payload }) => {
+            state.activeAuthorBook = null;
+        }
     }
 });
 
@@ -47,5 +50,6 @@ export const {
     setActiveAuthorBook,
     createNewAuthor,
     updateAuthor,
-    deleteAuthor
+    deleteAuthor,
+    cleanActiveAutor
 } = authorSlice.actions

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import appAPI from "../API/appAPI";
-import { createNewAuthor, deleteAuthor, getAuthors, getTypeAuthors, setActiveAuthorBook, updateAuthor } from "../store/author/authorSlice";
+import { cleanActiveAutor, createNewAuthor, deleteAuthor, getAuthors, getTypeAuthors, setActiveAuthorBook, updateAuthor } from "../store/author/authorSlice";
 import { openOrCloseModal } from "../store/ui/uiSlice";
 
 export const useAuthorBook = () => {
@@ -39,10 +39,23 @@ export const useAuthorBook = () => {
 
             if (formAuthor.autorID) {
                 //actualizar author
-                const { data } = await appAPI.put(`/updateAutor/${formAuthor.autorID}`, formAuthor);
+                const { nombreAutor, tipoAutorId, tipoautorid } = formAuthor;
+                if (tipoAutorId === undefined) {
+
+
+                    const { data } = await appAPI.put(`/updateAutor/${formAuthor.autorID}`, { nombreAutor, tipoAutorId: tipoautorid });
+                    dispatch(updateAuthor(data));
+                    dispatch(cleanActiveAutor());
+                    dispatch(openOrCloseModal());
+                    return;
+                }
+
+                const { data } = await appAPI.put(`/updateAutor/${formAuthor.autorID}`, { nombreAutor, tipoAutorId });
                 dispatch(updateAuthor(data));
+                dispatch(cleanActiveAutor());
                 dispatch(openOrCloseModal());
                 return;
+
             }
 
 
@@ -50,7 +63,7 @@ export const useAuthorBook = () => {
             const { data } = await appAPI.post('/CreateAutor', formAuthor);
             const { autorID, nombreautor, tipoautor, tipoautorid } = data;
 
-            dispatch(createNewAuthor({ autorid: autorID, nombreautor, tipoAutorId: tipoautorid, tipoautor }));
+            dispatch(createNewAuthor({ autorID, nombreautor, tipoAutorId: tipoautorid, tipoautor }));
             dispatch(openOrCloseModal());
 
 

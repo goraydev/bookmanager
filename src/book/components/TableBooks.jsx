@@ -183,14 +183,6 @@ export const TableBooks = () => {
                         <Edit />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip arrow placement="top" title="Delete">
-                      <IconButton
-                        color="error"
-                        onClick={() => handleDeleteRow(row)}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </Tooltip>
                   </>
                 ) : null}
 

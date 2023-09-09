@@ -82,7 +82,7 @@ export const FormAuthor = () => {
       });
     }
 
-    //console.log(formState);
+    // console.log(formState);
     onSetAuhor(formState);
     setTipoId("");
     onResetForm();
@@ -94,6 +94,7 @@ export const FormAuthor = () => {
       setFormState({
         ...activeAuthorBook,
         nombreAutor: activeAuthorBook.nombreautor,
+        
       });
       return;
     }
